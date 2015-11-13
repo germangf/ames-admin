@@ -1,0 +1,12 @@
+.md-datepicker-input-container {
+  margin-left: 2px;
+}
+
+.md-inline-form md-datepicker {
+    margin-top: 11px;
+}
+
+.md-button.md-icon-button {
+  width: 36px;
+  margin: 0 6px 0 0;
+}

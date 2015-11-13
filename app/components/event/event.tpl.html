@@ -1,0 +1,38 @@
+<h1 class="page-header">Event</h1>
+
+<div layout="row">
+<md-sidenav class="site-sidenav md-sidenav-left md-locked-open md-closed md-whiteframe-z2"
+  md-component-id="left"md-is-locked-open="$mdMedia('gt-sm')">
+
+  <ul class="docs-menu">
+    <li ng-repeat="menu in menus" class="parent-list-item">
+      <a ui-sref="{{menu.href}}">
+        <md-button>
+          <span>{{menu.title}}</span>
+        </md-button>
+      </a>
+    </li>
+  </ul>
+</md-sidenav>
+
+<md-content md-scroll-y flex>
+      <div layout layout-sm="column">
+        <md-input-container flex>
+          <label>Nombre</label>
+          <input ng-model="filterData.name">
+        </md-input-container>
+        <md-input-container flex>
+          <label>Apellidos</label>
+          <input ng-model="filterData.surnames">
+        </md-input-container>
+        <md-input-container flex>
+          <label>Email</label>
+          <input ng-model="filterData.email">
+        </md-input-container>
+        <md-input-container flex>
+          <label>Teléfono</label>
+          <input name="postalCode" ng-model="user.postalCode" required>
+        </md-input-container>
+      </div>
+</md-content>
+</div>
