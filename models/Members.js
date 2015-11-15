@@ -1,12 +1,21 @@
 var mongoose = require('mongoose');
+var moment = require('moment');
 
 var MemberSchema = new mongoose.Schema({
-  startDate: Date,
-  endDate: Date,
   name: String,
   surnames: String,
   email: String,
   phone: String,
+  birthday: String,
+  nationality: String,
+  inSwizertlandSince: String,
+  job: {
+    title: String,
+    company: String
+  },
+  startDate: { type: String, default: moment().format('DD.MM.YYYY') },
+  startYear: { type: String, default: moment().format('YYYY') },
+  endDate: String,
   address: {
     street: String,
     plz: Number,
@@ -18,34 +27,28 @@ var MemberSchema = new mongoose.Schema({
     contribution: String,
     how: String,
     associations: String,
-    section: String
+    section: String,
+    quoteYear: String
   },
-  birthday: Date,
-  maritalStatus: String,
-  childrenNr: Number,
-  nationality: String,
-  inSwizertlandSince: Date,
   education: {
-  	level: String,
-  	degree: String,
+    level: String,
+    degree: String,
     languages: {
-    	swiss: String,
-    	german: String,
-    	french: String,
-    	italian: String,
-    	english: String,
-    	others: String
+      swiss: String,
+      german: String,
+      french: String,
+      italian: String,
+      english: String,
+      others: String
     }
   },
-  job: {
-    title: String,
-    company: String
-  },
+  maritalStatus: String,
+  childrenNr: Number,
+  hobbies: String,
   facebook: {
     access: Boolean,
     user: String
-  },
-  hobbies: String
+  }
 });
 
 mongoose.model('Member', MemberSchema);

@@ -6,9 +6,21 @@ angular.module('ames-admin')
   $scope.members = resultData.data;
 
   $scope.filterData = {};
+  $scope.showFilterContainer = false;
+  $scope.showFilter = function() {
+    $scope.showFilterContainer = !$scope.showFilterContainer;
+  };
 
   $scope.filter = function() {
-    members.filter($scope.filterData);
+    members.filter($scope.filterData).success(function(result) {
+      $scope.members = result;
+    });
+  };
+
+  $scope.showMember = function(id) {
+    members.findOne(id, function(data) {
+      $state.go('member.detail');
+    });
   };
 
   $scope.sections = [
@@ -18,6 +30,11 @@ angular.module('ames-admin')
     { code: 'LS', description: 'Lausana' },
     { code: 'ZH', description: 'Zurich' }];
 
+  $scope.statuses = [
+    { code: 'ALL', description: 'Todas' },
+    { code: 'ACT', description: 'En activo' },
+    { code: 'REM', description: 'Dadas de baja' }];
+
 
   $scope.years = getYears();
 
@@ -25,21 +42,14 @@ angular.module('ames-admin')
     { name: 'Nombre', field: 'name' },
     { name:'Email', field: 'email' },
     { name: 'Telefono', field: 'phone' },
-    { name: 'Seccion', field: 'section' }
+    { name: 'Seccion', field: 'section' },
+    { name: 'Cuota pago', field: 'quote' }
   ];
 
-  $scope.custom = {name: 'bold', email:'grey', phone: 'grey', section: 'gray'};
-  $scope.sortable = ['name', 'email', 'section'];
+  $scope.custom = {name: 'bold', email:'grey', phone: 'grey', section: 'grey', quote: 'grey'};
+  $scope.sortable = ['name', 'email', 'section', 'quote'];
   $scope.thumbs = 'thumb';
-  $scope.count = 3;
-
-  $scope.showMember = function(id) {
-    console.log(id);
-    members.findOne(id, function(data) {
-      console.log('go');
-      $state.go('member.detail');
-    });
-  };
+  $scope.count = 2;
 
 }]);
 

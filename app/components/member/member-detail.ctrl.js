@@ -3,10 +3,10 @@
 angular.module('ames-admin')
 .controller('MemberDetailCtrl', ['$scope', '$state', 'members', 'resultData', function($scope, $state, members, resultData) {
 
-  moment.locale('es');
+  //moment.locale('es');
   $scope.member = resultData ? resultData.data[0] : {};
-  $scope.member.birthday = $scope.member.birthday && moment($scope.member.birthday).format('DD.MM.YYYY');
-  $scope.member.inSwizertlandSince = $scope.member.inSwizertlandSince && moment($scope.member.inSwizertlandSince).format('DD.MM.YYYY');
+  //$scope.member.birthday = $scope.member.birthday && moment($scope.member.birthday).format('DD.MM.YYYY');
+  //$scope.member.inSwizertlandSince = $scope.member.inSwizertlandSince && moment($scope.member.inSwizertlandSince).format('DD.MM.YYYY');
 
   $scope.save = function() {
     members.save($scope.member);
@@ -19,7 +19,8 @@ angular.module('ames-admin')
   };
 
   $scope.remove = function() {
-    members.remove($scope.member._id);
+    console.log($scope.member);
+    members.remove($scope.member);
     $state.go('member.list');
 	};
 
@@ -90,12 +91,6 @@ angular.module('ames-admin')
     { code: 'B', description: 'Basico' },
     { code: 'I', description: 'Intermedio' },
     { code: 'A', description: 'Avanzado' }
-  ];
-
-  $scope.tabs = [
-    { title: 'Tabs 1', content: 'Basico' },
-    { title: 'Tabs 2', content: 'Intermedio' },
-    { title: 'Tabs 3', content: 'Avanzado' }
   ];
 
 }]);

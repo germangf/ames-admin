@@ -25,7 +25,7 @@ angular.module('ames-admin')
       controller: 'MemberListCtrl',
       resolve: {
         resultData: ['members', function(members) {
-          return members.find();
+          return members.findActive();
         }]
       }
     })

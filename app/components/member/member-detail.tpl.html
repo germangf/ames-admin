@@ -22,8 +22,8 @@
           </md-input-container>
         </div>
         <div layout layout-sm="column">
-          <am-datepicker iclass="grey-600" save="Guardar" cancel="Cancelar" separator="."
-            ng-model="member.birthday" label="Fecha nacimiento"></am-datepicker>
+          <am-datepicker ng-model="member.birthday" label="Fecha nacimiento" iclass="grey-600" 
+            separator="." save="Guardar" cancel="Cancelar"></am-datepicker>
           <md-input-container flex>
             <label>Nacionalidad</label>
             <md-select ng-model="member.nationality">
@@ -32,8 +32,8 @@
               </md-option>
             </md-select>
           </md-input-container>
-          <am-datepicker label="En Suiza desde" iclass="grey-600" save="Guardar" cancel="Cancelar"
-            ng-model="member.inSwizertlandSince"></am-datepicker>
+          <am-datepicker ng-model="member.inSwizertlandSince" label="En Suiza desde" iclass="grey-600" 
+            separator="." save="Guardar" cancel="Cancelar"></am-datepicker>
         </div>
         <div layout layout-sm="column">
           <md-input-container flex>
@@ -46,10 +46,10 @@
           </md-input-container>
         </div>
         <div layout layout-sm="column">
-          <am-datepicker label="Fecha de alta" iclass="grey-600" ng-class="{disabled: true}"
+          <am-datepicker ng-show="member.startDate" label="Fecha de alta" iclass="grey-600" ng-class="{disabled: true}"
             save="Save" cancel="Cancel" separator="." ng-model="member.startDate"></am-datepicker>
-          <am-datepicker label="Fecha de baja" iclass="grey-600" save="Save" cancel="Cancel"
-            separator="." ng-model="member.endDate"></am-datepicker>
+          <am-datepicker ng-show="member.endDate" label="Fecha de baja" iclass="grey-600" save="Save" cancel="Cancel"
+            ng-model="member.endDate"></am-datepicker>
         </div>
       </md-tab>
 
@@ -119,7 +119,11 @@
               </md-option>
             </md-select>
           </md-input-container>
-        </div>
+          <md-input-container flex>
+            <label>Año cuota pago</label>
+            <input ng-model="member.ames.quoteYear" required>
+          </md-input-container>
+         </div>
       </md-tab>
 
      <!-- FORMACION -->
@@ -231,7 +235,7 @@
   </md-content>
   <md-content class="layout-row flex" layout-align="end center">
     <md-button type="submit" class="md-raised md-primary">Guardar</md-button>
-    <md-button class="md-raised md-warn">Eliminar</md-button>
+    <md-button ng-click="remove()" class="md-raised md-warn">Eliminar</md-button>
   </md-content>
 
 </form>

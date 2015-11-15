@@ -10,6 +10,13 @@ angular.module('ames-admin')
 			});
 	};
 
+	this.findActive = function() {
+		return $http.get('/member/active')
+			.success(function(data) {
+				return data;
+			});
+	};
+
 	this.findOne = function(id) {
 		return $http.get('/member/' + id)
 			.success(function(data) {
@@ -18,7 +25,7 @@ angular.module('ames-admin')
 	};
 
 	this.save = function(member) {
-		return $http.post('/member', member)
+		return $http.post('/member/', member)
 			.success(function(data) {
 				return data;
 			});
@@ -26,20 +33,21 @@ angular.module('ames-admin')
 
 	this.update = function(member) {
 		console.log(member);
-		return $http.put('/member', member)
+		return $http.put('/member/', member)
 			.success(function(data) {
 				return data;
 			});
 	};
 
-	this.remove = function(id) {
-		return $http.delete('/member/' + id)
+	this.remove = function(member) {
+		return $http.put('/member/' + member._id, member)
 			.success(function(data) {
 				return data;
 			});
 	};
 
 	this.filter = function(filterData) {
+		console.log(filterData);
 		return $http.post('/member/filter', filterData)
 			.success(function(data) {
 				return data;
