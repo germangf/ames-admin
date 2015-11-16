@@ -49,9 +49,9 @@
           </md-select>
         </md-input-container>
       </div>
-      <div layout layout-sm="column">
+      <md-content class="layout-row flex" layout-align="end center">
         <md-button type="submit" class="md-raised md-primary">Buscar</md-button>
-      </div>
+      </md-content>
     </form>
   </md-content>
 </section>
@@ -68,8 +68,8 @@
     <md-button class="md-fab md-accent" ui-sref="member.detail">+</md-button>
   </div>
   <md-content layout="column" flex="flex" ng-click="toggleSearch=false">
-    <md-table headers="headers" content="members" sortable="sortable" filters="search"
-      custom-class="custom" thumbs="thumbs" count="count"></md-table>
+    <c-md-table headers="headers" content="members" sortable="sortable" filters="search"
+      custom-class="custom" thumbs="thumbs" count="count"></c-md-table>
   </md-content>
 
   <!-- md-table jade template-->
@@ -78,8 +78,7 @@
       <thead>
         <tr class="md-table-headers-row">
           <th ng-repeat="h in headers" class="md-table-header">
-            <a href="#" ng-if="handleSort(h.field)"
-              ng-click="reverse=!reverse;order(h.field,reverse)">
+            <a href="#" ng-if="handleSort(h.field)" ng-click="reverse=!reverse;order(h.field,reverse)">
               {{h.name}}
               <i ng-show="reverse && h.field == predicate" class="ion-android-arrow-dropup"></i>
               <i ng-show="!reverse && h.field == predicate" class="ion-android-arrow-dropdown"></i>
@@ -89,7 +88,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="c in content" class="md-table-content-row"  ui-sref="member.detail({ id: c._id })">
+        <tr ui-sref="member.detail({ id: c._id })" ng-repeat="c in content | filter:filters | startFrom:tablePage*count | limitTo:count" class="md-table-content-row">
           <td>{{c.name}} {{c.surnames}}</td>
           <td>{{c.email}}</td>
           <td>{{c.phone}}</td>
@@ -98,10 +97,23 @@
         </tr>
       </tbody>
     </table>
-    <div layout="row" class="md-table-footer"><span class="md-table-count-info">Rows per page : <a href="#" ng-click="goToPage(0); count=10">10</a>,<a href="#" ng-click="goToPage(0); count=25">25</a>,<a href="#" ng-click="goToPage(0); count=50">50</a>,<a href="#" ng-click="goToPage(0); count=100">100</a>(current is {{count}})</span><span flex="flex"></span><span ng-show="nbOfPages() &gt; 1">
-        <md-button ng-disabled="tablePage==0" ng-click="tablePage=tablePage-1" aria-label="Previous Page" class="md-primary md-hue-2"><i style="font-size:16px;" class="ion-chevron-left"></i></md-button><a href="#" ng-repeat="i in getNumber(nbOfPages()) track by $index">
-          <md-button ng-click="goToPage($index)" class="md-primary md-hue-2 md-table-footer-item"><span ng-class="{ 'md-table-active-page': tablePage==$index}">{{$index+1}}</span></md-button></a>
-        <md-button ng-disabled="tablePage==nbOfPages()-1" ng-click="tablePage=tablePage+1" aria-label="Next Page" class="md-primary md-hue-2"><i style="font-size:16px;" class="ion-chevron-right"></i></md-button></span></div>
+
+      <md-content class="layout-row flex" layout-align="end center">
+        <md-button ng-disabled="tablePage==0" ng-click="tablePage=tablePage-1"
+          aria-label="Previous Page" class="md-primary md-hue-2 md-table-footer-item">
+          <i style="font-size:16px;" class="ion-chevron-left"></i>
+        </md-button>
+        <a href="#" ng-repeat="i in getNumber(nbOfPages()) track by $index">
+          <md-button ng-click="goToPage($index)" class="md-primary md-hue-2 md-table-footer-item">
+            <span ng-class="{ 'md-table-active-page': tablePage==$index}">{{$index+1}}</span>
+          </md-button>
+        </a>
+        <md-button ng-disabled="tablePage==nbOfPages()-1" ng-click="tablePage=tablePage+1"
+          aria-label="Next Page" class="md-primary md-hue-2 md-table-footer-item">
+          <i style="font-size:16px;" class="ion-chevron-right"></i>
+        </md-button>
+      </md-content>
+    </div>
   </div>
 
 </section>

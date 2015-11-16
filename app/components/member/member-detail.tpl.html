@@ -22,8 +22,8 @@
           </md-input-container>
         </div>
         <div layout layout-sm="column">
-          <am-datepicker ng-model="member.birthday" label="Fecha nacimiento" iclass="grey-600" 
-            separator="." save="Guardar" cancel="Cancelar"></am-datepicker>
+          <c-md-datepicker ng-model="member.birthday" label="Fecha nacimiento" iclass="grey-600"
+            separator="." save="Guardar" cancel="Cancelar"></c-md-datepicker>
           <md-input-container flex>
             <label>Nacionalidad</label>
             <md-select ng-model="member.nationality">
@@ -32,8 +32,8 @@
               </md-option>
             </md-select>
           </md-input-container>
-          <am-datepicker ng-model="member.inSwizertlandSince" label="En Suiza desde" iclass="grey-600" 
-            separator="." save="Guardar" cancel="Cancelar"></am-datepicker>
+          <c-md-datepicker ng-model="member.inSwizertlandSince" label="En Suiza desde" iclass="grey-600"
+            separator="." save="Guardar" cancel="Cancelar"></c-md-datepicker>
         </div>
         <div layout layout-sm="column">
           <md-input-container flex>
@@ -46,10 +46,10 @@
           </md-input-container>
         </div>
         <div layout layout-sm="column">
-          <am-datepicker ng-show="member.startDate" label="Fecha de alta" iclass="grey-600" ng-class="{disabled: true}"
-            save="Save" cancel="Cancel" separator="." ng-model="member.startDate"></am-datepicker>
-          <am-datepicker ng-show="member.endDate" label="Fecha de baja" iclass="grey-600" save="Save" cancel="Cancel"
-            ng-model="member.endDate"></am-datepicker>
+          <c-md-datepicker ng-show="member.startDate" label="Fecha de alta" iclass="grey-600" ng-class="{disabled: true}"
+            save="Save" cancel="Cancel" separator="." ng-model="member.startDate"></c-md-datepicker>
+          <c-md-datepicker ng-show="member.endDate" label="Fecha de baja" iclass="grey-600" save="Save" cancel="Cancel"
+            ng-model="member.endDate"></c-md-datepicker>
         </div>
       </md-tab>
 
@@ -144,46 +144,11 @@
         </div>
         <h3>Idiomas</h3>
         <div layout layout-sm="column">
-          <md-input-container flex>
-            <label>Alemán</label>
-            <md-select ng-model="member.education.languages.german">
-              <md-option ng-repeat="level in languageLevels" value="{{level.code}}">
-                {{level.description}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <md-input-container flex>
-            <label>Suizo</label>
-            <md-select ng-model="member.education.languages.swiss">
-              <md-option ng-repeat="level in languageLevels" value="{{level.code}}">
-                {{level.description}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <md-input-container flex>
-            <label>Francés</label>
-            <md-select ng-model="member.education.languages.french">
-              <md-option ng-repeat="level in languageLevels" value="{{level.code}}">
-                {{level.description}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <md-input-container flex>
-            <label>Italiano</label>
-            <md-select ng-model="member.education.languages.italian">
-              <md-option ng-repeat="level in languageLevels" value="{{level.code}}">
-                {{level.description}}
-              </md-option>
-            </md-select>
-          </md-input-container>
-          <md-input-container flex>
-            <label>Inglés</label>
-            <md-select ng-model="member.education.languages.english">
-              <md-option ng-repeat="level in languageLevels" value="{{level.code}}">
-                {{level.description}}
-              </md-option>
-            </md-select>
-          </md-input-container>
+          <c-md-language label="Alemán" ng-model="member.education.languages.german"></c-md-language>
+          <c-md-language label="Suizo" ng-model="member.education.languages.swiss"></c-md-language>
+          <c-md-language label="Francés" ng-model="member.education.languages.french"></c-md-language>
+          <c-md-language label="Italiano" ng-model="member.education.languages.italian"></c-md-language>
+          <c-md-language label="Inglés" ng-model="member.education.languages.english"></c-md-language>
           <md-input-container flex>
             <label>Otros</label>
             <textarea ng-model="member.education.languages.others" columns="1" md-maxlength="150">
