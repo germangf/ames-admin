@@ -43,9 +43,34 @@ angular.module('ames-admin')
       }
     })
     .state('event', {
+      abstract: true,
       url: '/event',
       templateUrl: 'components/event/event.tpl.html',
       controller: 'EventCtrl'
+    })
+    .state('event.list', {
+      parent: 'event',
+      url: '',
+      templateUrl: 'components/event/event-list.tpl.html',
+      controller: 'EventListCtrl',
+      resolve: {
+        resultData: ['events', function(events) {
+          return events.findPending();
+        }]
+      }
+    })
+    .state('event.detail', {
+      parent: 'event',
+      url: '/:id',
+      templateUrl: 'components/event/event-detail.tpl.html',
+      controller: 'EventDetailCtrl',
+      resolve: {
+        resultData: ['$stateParams', 'events', function($stateParams, events) {
+          if ($stateParams.id) {
+            return events.findOne($stateParams.id);
+          }
+        }]
+      }
     })
     .state('login', {
       url: '/login',

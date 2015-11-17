@@ -3,10 +3,7 @@
 angular.module('ames-admin')
 .controller('MemberDetailCtrl', ['$scope', '$state', 'members', 'resultData', function($scope, $state, members, resultData) {
 
-  //moment.locale('es');
   $scope.member = resultData ? resultData.data[0] : {};
-  //$scope.member.birthday = $scope.member.birthday && moment($scope.member.birthday).format('DD.MM.YYYY');
-  //$scope.member.inSwizertlandSince = $scope.member.inSwizertlandSince && moment($scope.member.inSwizertlandSince).format('DD.MM.YYYY');
 
   $scope.save = function() {
     members.save($scope.member);
@@ -85,12 +82,6 @@ angular.module('ames-admin')
     { code: 'BC', description: 'Bachiller' },
     { code: 'FP', description: 'Formacion Profesional' },
     { code: 'UN', description: 'Universitarios' }
-  ];
-
-  $scope.languageLevels = [
-    { code: 'B', description: 'Basico' },
-    { code: 'I', description: 'Intermedio' },
-    { code: 'A', description: 'Avanzado' }
   ];
 
 }]);

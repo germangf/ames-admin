@@ -17,6 +17,8 @@
     "angular-bootstrap": "~0.14.3",
     "angular-material": "master",
     "angular-material-icons": "~0.6.0",
-    "angular-material-data-table": "~0.8.14"
+    "angular-material-data-table": "~0.8.14",
+    "angular-moment": "~0.10.3",
+    "moment": "~2.10.6"
   }
 }

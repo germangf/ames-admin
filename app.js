@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var members = require('./routes/members');
+var events = require('./routes/events');
 
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
@@ -30,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'vendor')));
 
 app.use('/', routes);
 app.use('/member', members);
+app.use('/event', events);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

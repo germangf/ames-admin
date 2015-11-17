@@ -18,6 +18,7 @@
           <label>Nombre</label>
           <input ng-model="filterData.name">
         </md-input-container>
+<!--
         <md-input-container flex>
           <label>Apellidos</label>
           <input ng-model="filterData.surnames">
@@ -47,6 +48,7 @@
             </md-option>
           </md-select>
         </md-input-container>
+-->
       </div>
       <md-content class="layout-row flex" layout-align="end center">
         <md-button type="submit" class="md-raised md-primary">Buscar</md-button>
@@ -64,10 +66,10 @@
   </md-toolbar>
 
   <div class="main-fab">
-    <md-button class="md-fab md-accent" ui-sref="member.detail">+</md-button>
+    <md-button ui-sref="event.detail" class="md-fab md-accent">+</md-button>
   </div>
   <md-content layout="column" flex="flex" ng-click="toggleSearch=false">
-    <c-md-table headers="headers" content="members" sortable="sortable" filters="search"
+    <c-md-table headers="headers" content="events" sortable="sortable" filters="search"
       custom-class="custom" thumbs="thumbs" count="count"></c-md-table>
   </md-content>
 
@@ -87,12 +89,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr ui-sref="member.detail({ id: c._id })" ng-repeat="c in content | filter:filters | startFrom:tablePage*count | limitTo:count" class="md-table-content-row">
-          <td>{{c.name}} {{c.surnames}}</td>
-          <td>{{c.email}}</td>
-          <td>{{c.phone}}</td>
-          <td>{{c.ames.section}}</td>
-          <td>{{c.ames.quoteYear}}</td>
+        <tr ui-sref="event.detail({ id: c._id })" ng-repeat="c in content | filter:filters | startFrom:tablePage*count | limitTo:count" class="md-table-content-row">
+          <td>{{c.type}}</td>
+          <td>{{c.name}}</td>
+          <td>{{c.section}}</td>
+          <td>{{c.location}}</td>
+          <td>{{c.date}}</td>
         </tr>
       </tbody>
     </table>
@@ -115,4 +117,3 @@
   </div>
 
 </section>
-
