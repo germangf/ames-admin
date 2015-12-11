@@ -7,7 +7,7 @@
           <md-input-container flex>
             <label>Tipo</label>
             <md-select ng-model="event.type">
-              <md-option ng-repeat="type in types" value="{{type.code}}">
+              <md-option ng-repeat="type in eventTypes" value="{{type.code}}">
                 {{type.description}}
               </md-option>
             </md-select>
@@ -23,7 +23,7 @@
             <label>Lugar</label>
             <input ng-model="event.location">
           </md-input-container>
-          <c-md-datepicker ng-model="eventDate" label="Fecha" iclass="grey-600"
+          <c-md-datepicker ng-model="event.dateUI" label="Fecha" iclass="grey-600"
             separator="." save="Guardar" cancel="Cancelar"></c-md-datepicker>
         </div>
 

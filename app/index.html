@@ -6,59 +6,84 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ames-admin</title>
+  <link rel="icon" href="img/favicon.ico">
   <link rel="author" href="humans.txt">
 
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<!--
   <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
 
   <link rel="stylesheet prefetch" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
+-->
   <link rel="stylesheet" href="/angular-material/angular-material.css"/>
+
+  <link rel="stylesheet" href="/angular-material-data-table/dist/md-data-table.min.css"/>
+
+  <!--
   <link rel="stylesheet" href="/angular-material-icons/angular-material-icons.css"/>
+  -->
+<!--
   <link rel="stylesheet" href="/components/shared/datepicker/datepicker.css"/>
-  <link rel="stylesheet" href="/components/shared/table/table.css"/>
 
   <link rel="stylesheet" href="/css/docs.css"/>
   <link rel="stylesheet" href="/css/styles.css"/>
 
+  <style>
+  .st-sort-ascent:before{
+    content: '\25B2';
+  }
+
+  .st-sort-descent:before{
+    content: '\25BC';
+  }
+  </style>
+-->
+  <link rel="stylesheet" href="/css/main.css"/>
 </head>
 <body ng-app="ames-admin" ng-cloak layout="row">
 
-  <md-sidenav class="site-sidenav md-sidenav-left md-locked-open md-closed md-whiteframe-z2"
-    md-component-id="left"md-is-locked-open="$mdMedia('gt-sm')">
-
+  <md-sidenav class="md-sidenav-left md-whiteframe-z2 sidenav" md-component-id="left"
+    md-is-locked-open="$mdMedia('gt-sm')">
     <header class="nav-header">
-      <a ng-href="/">
+      <a ui-sref="dashboard">
         <img src="img/logo_ames.png" alt="">
       </a>
     </header>
+    <md-subheader class="md-no-sticky">Dashboard</md-subheader>
+    <md-divider></md-divider>
 
-    <ul class="docs-menu">
-      <li class="parent-list-item version-picker">
-        <h2 class="menu-heading md-subhead ng-binding ng-scope">Dashboard</h2>
-      </li>
+    <md-list>
+      <md-list-item ui-sref="member" ng-class="{'active': 'member' == page}">
+        <md-icon class="material-icons white">group</md-icon>
+        <p>Socias</p>
+      </md-list-item>
+      <md-list-item ui-sref="event" ng-class="{'active': 'event' == page}">
+        <md-icon class="material-icons white">event</md-icon>
+        <p>Eventos</p>
+      </md-list-item>
+    </md-list>
 
-      <li class="parent-list-item">
-        <a ui-sref="member.list">
-          <md-button>
-            <ng-md-icon icon="group" size="30"></ng-md-icon>
-            <span style="margin-left: 10px;vertical-align: sub;">Socias</span>
-          </md-button>
-        </a>
-      </li>
-      <li class="parent-list-item">
-        <a ui-sref="event.list">
-          <md-button>
-            <ng-md-icon icon="event" size="30"></ng-md-icon>
-            <span style="margin-left: 10px;vertical-align: sub;">Eventos</span>
-          </md-button>
-        </a>
-      </li>
-    </ul>
+    <md-divider></md-divider>
   </md-sidenav>
 
   <div flex layout="column" tabIndex="-1" role="main">
-    <md-toolbar layout="row" class="md-whiteframe-z1 site-content-toolbar">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" aria-label="Settings">
+          <md-icon class="material-icons white">menu</md-icon>
+        </md-button>
+        <h2>
+          <span>Toolbar with Icon Buttons</span>
+        </h2>
+        <span flex></span>
+        <md-button class="md-icon-button" aria-label="Favorite">
+          <md-icon class="material-icons white">favorite</md-icon>
+        </md-button>
+        <md-button class="md-icon-button" aria-label="More">
+          <md-icon class="material-icons white">more_vert</md-icon>
+        </md-button>
+      </div>
     </md-toolbar>
 
     <md-content md-scroll-y class="layout-padding flex">
@@ -76,24 +101,20 @@
 
   <script src="/moment/min/moment-with-locales.min.js"></script>
   <script src="/angular-moment/angular-moment.min.js"></script>
-  <!--
-  <script src="/datepicker/angular-material-datepicker.js"></script>
-  -->
+  <script src="/angular-smart-table/dist/smart-table.min.js"></script>
+  <script src="/angular-material-data-table/dist/md-data-table.min.js"></script>
 
   <script src="app.module.js"></script>
   <script src="app.routes.js"></script>
+  <script src="/components/shared/masterdata/masterdata.service.js"></script>
   <script src="/components/shared/datepicker/datepicker.directive.js"></script>
   <script src="/components/shared/datepicker/datepicker.js"></script>
-  <script src="/components/shared/table/table.directive.js"></script>
-  <script src="/components/shared/table/table.filter.js"></script>
   <script src="/components/dashboard/dashboard.ctrl.js"></script>
   <script src="/components/member/member.directive.js"></script>
   <script src="/components/member/member.service.js"></script>
   <script src="/components/member/member.ctrl.js"></script>
-  <script src="/components/member/member-list.ctrl.js"></script>
   <script src="/components/member/member-detail.ctrl.js"></script>
   <script src="/components/event/event.service.js"></script>
   <script src="/components/event/event.ctrl.js"></script>
-  <script src="/components/event/event-list.ctrl.js"></script>
   <script src="/components/event/event-detail.ctrl.js"></script>
 </html>

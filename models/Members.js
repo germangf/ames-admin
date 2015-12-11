@@ -6,16 +6,16 @@ var MemberSchema = new mongoose.Schema({
   surnames: String,
   email: String,
   phone: String,
-  birthday: String,
+  birthday: Date,
   nationality: String,
   inSwizertlandSince: String,
   job: {
     title: String,
     company: String
   },
-  startDate: { type: String, default: moment().format('DD.MM.YYYY') },
+  startDate: { type: Date, default: moment().toDate() },
   startYear: { type: String, default: moment().format('YYYY') },
-  endDate: String,
+  endDate: Date,
   address: {
     street: String,
     plz: Number,

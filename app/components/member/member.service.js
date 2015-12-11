@@ -32,7 +32,6 @@ angular.module('ames-admin')
 	};
 
 	this.update = function(member) {
-		console.log(member);
 		return $http.put('/member/', member)
 			.success(function(data) {
 				return data;
@@ -47,7 +46,6 @@ angular.module('ames-admin')
 	};
 
 	this.filter = function(filterData) {
-		console.log(filterData);
 		return $http.post('/member/filter', filterData)
 			.success(function(data) {
 				return data;

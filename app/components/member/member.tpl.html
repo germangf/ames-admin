@@ -1,1 +1,113 @@
-<div ui-view></div>
+<section class="filter">
+
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button ng-click="showFilter()" class="md-icon-button" aria-label="search">
+        <md-icon class="material-icons white">search</md-icon>
+      </md-button>
+      <h2>
+        <span>Búsqueda</span>
+      </h2>
+      <span flex></span>
+      <md-button ng-click="showFilter()" class="md-icon-button" aria-label="filter">
+        <md-icon class="material-icons white">filter_list</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+
+  <md-content ng-show="showFilterContainer" layout-padding>
+    <form novalidate="" ng-submit="filter()" class="md-inline-form">
+      <div layout layout-sm="column">
+        <md-input-container flex>
+          <label>Nombre</label>
+          <input ng-model="filterData.name">
+        </md-input-container>
+        <md-input-container flex>
+          <label>Apellidos</label>
+          <input ng-model="filterData.surnames">
+        </md-input-container>
+        <md-input-container flex>
+          <label>Email</label>
+          <input ng-model="filterData.email">
+        </md-input-container>
+      </div>
+      <div layout layout-sm="column">
+        <md-input-container flex>
+          <label>Sección</label>
+          <md-select ng-model="filterData.section">
+            <md-option ng-repeat="section in sections" value="{{section.code}}">
+              {{section.description}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container flex>
+          <md-checkbox ng-model="filterData.quotePending">Pendiente de pago</md-checkbox>
+        </md-input-container>
+        <md-input-container flex>
+          <label>Estado</label>
+          <md-select ng-model="filterData.status">
+            <md-option ng-repeat="status in memberStatus" value="{{status.code}}">
+              {{status.description}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+      <md-content class="layout-row flex" layout-align="end center">
+        <md-button type="submit" class="md-raised md-primary">Buscar</md-button>
+      </md-content>
+    </form>
+  </md-content>
+</section>
+<br>
+
+<section>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-button class="md-icon-button" aria-label="list">
+        <md-icon class="material-icons white">list</md-icon>
+      </md-button>
+      <h2>
+        <span>Listado</span>
+      </h2>
+      <span flex></span>
+      <md-button ui-sref="member.detail" class="md-fab md-accent md-mini md-fab-top-right" aria-label="Add">
+        <md-icon class="material-icons white">add</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-content layout="column" flex="flex">
+<!--
+<md-data-table-toolbar>
+  <h2 class="md-title">Nutrition</h2>
+</md-data-table-toolbar>
+-->
+
+    <md-data-table-container>
+      <table md-data-table md-progress="deferred">
+        <thead md-order="query.order" md-trigger="onOrderChange">
+          <tr>
+            <th name="Nombre" order-by="name.value"></th>
+            <th name="Email" order-by="email.value"></th>
+            <th numeric name="Teléfono" order-by="phone.value"></th>
+            <th numeric name="Sección" order-by="sectionDescription.value"></th>
+            <th numeric name="Cuota pago" order-by="quoteYear.value"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ui-sref="member.detail({ id: member._id })" md-auto-select ng-repeat="member in members">
+            <td>{{member.name}} {{member.surnames}}</td>
+            <td>{{member.email}}</td>
+            <td>{{member.phone}}</td>
+            <td>{{member.sectionDescription}}</td>
+            <td>{{member.quoteYear}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </md-data-table-container>
+
+    <md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{members.total}}" md-trigger="onPaginationChange"></md-data-table-pagination>
+
+  </md-content>
+</section>

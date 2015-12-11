@@ -106,7 +106,7 @@
           <md-input-container flex>
             <label>Como supiste de la asociacion</label>
             <md-select ng-model="member.ames.how">
-              <md-option ng-repeat="how in hows" value="{{how.code}}">
+              <md-option ng-repeat="how in memberHows" value="{{how.code}}">
                 {{how.description}}
               </md-option>
             </md-select>

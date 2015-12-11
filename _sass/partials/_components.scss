@@ -1,0 +1,21 @@
+section {
+  md-toolbar {
+    min-height: 40px;
+  }
+  &.filter {
+    md-toolbar {
+      background-color: rgb(16,108,200);
+      color: rgba(255,255,255,0.87);
+      border-radius: 3px 3px 0 0;
+      box-shadow: 0 1px rgba(255, 255, 255, 0.1);
+    }
+  }
+  .md-toolbar-tools {
+    min-height: 40px;
+    height: 40px;
+    background-color: rgb(16,108,200);
+    color: rgba(255,255,255,0.87);
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 1px rgba(255, 255, 255, 0.1);
+  }
+}

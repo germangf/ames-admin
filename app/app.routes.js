@@ -3,26 +3,18 @@
 angular.module('ames-admin')
 .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
-  $urlRouterProvider.when('/dashboard', '');
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
     .state('dashboard', {
-      url: '/dashboard',
+      url: '/',
       templateUrl: 'components/dashboard/dashboard.tpl.html',
       controller: 'DashboardCtrl'
     })
     .state('member', {
-      abstract: true,
       url: '/member',
       templateUrl: 'components/member/member.tpl.html',
-      controller: 'MemberCtrl'
-    })
-    .state('member.list', {
-      parent: 'member',
-      url: '',
-      templateUrl: 'components/member/member-list.tpl.html',
-      controller: 'MemberListCtrl',
+      controller: 'MemberCtrl',
       resolve: {
         resultData: ['members', function(members) {
           return members.findActive();
@@ -43,16 +35,9 @@ angular.module('ames-admin')
       }
     })
     .state('event', {
-      abstract: true,
       url: '/event',
       templateUrl: 'components/event/event.tpl.html',
-      controller: 'EventCtrl'
-    })
-    .state('event.list', {
-      parent: 'event',
-      url: '',
-      templateUrl: 'components/event/event-list.tpl.html',
-      controller: 'EventListCtrl',
+      controller: 'EventCtrl',
       resolve: {
         resultData: ['events', function(events) {
           return events.findPending();
