@@ -3,7 +3,7 @@ var moment = require('moment');
 
 var MemberSchema = new mongoose.Schema({
   name: String,
-  surnames: String,
+  lastName: String,
   email: String,
   phone: String,
   birthday: Date,

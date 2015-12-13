@@ -30,8 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'vendor')));
 
 app.use('/', routes);
-app.use('/member', members);
-app.use('/event', events);
+app.use('/members', members);
+app.use('/events', events);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

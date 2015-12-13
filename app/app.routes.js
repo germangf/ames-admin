@@ -11,30 +11,68 @@ angular.module('ames-admin')
       templateUrl: 'components/dashboard/dashboard.tpl.html',
       controller: 'DashboardCtrl'
     })
-    .state('member', {
-      url: '/member',
-      templateUrl: 'components/member/member.tpl.html',
-      controller: 'MemberCtrl',
+
+    .state('members', {
+      abstract: true,
+      url: '/members',
+      templateUrl: 'components/members/members.tpl.html',
+      controller: 'MembersCtrl'
+    })
+    .state('members.list', {
+      parent: 'members',
+      url: '/',
+      templateUrl: 'components/members/members-list.tpl.html',
+      controller: 'MembersListCtrl',
       resolve: {
-        resultData: ['members', function(members) {
+        resolveData: ['members', function(members) {
           return members.findActive();
         }]
       }
     })
-    .state('member.detail', {
-      parent: 'member',
+    .state('members.detail', {
+      parent: 'members',
       url: '/:id',
-      templateUrl: 'components/member/member-detail.tpl.html',
-      controller: 'MemberDetailCtrl',
+      templateUrl: 'components/members/members-detail.tpl.html',
+      controller: 'MembersDetailCtrl',
       resolve: {
-        resultData: ['$stateParams', 'members', function($stateParams, members) {
-          if ($stateParams.id) {
+        resolveData: ['$stateParams', 'members', function($stateParams, members) {
+          if (0 !== parseInt($stateParams.id)) {
             return members.findOne($stateParams.id);
           }
         }]
       }
     })
-    .state('event', {
+
+
+/*
+    .state('members', {
+      url: '/members',
+      templateUrl: 'components/members/members.tpl.html',
+      controller: 'MembersCtrl',
+      resolve: {
+        resolveData: ['$stateParams', 'members', function($stateParams, members) {
+          return {
+            'showList': true,
+            'members': members.findActive()
+          };
+        }]
+      }
+    })
+    .state('members.detail', {
+      url: '/:id',
+      templateUrl: 'components/members/members.tpl.html',
+      controller: 'MembersDetailCtrl',
+      resolve: {
+        resolveData: ['$stateParams', 'members', function($stateParams, members) {
+          return {
+            'showList': false,
+            'members': 0 === parseInt($stateParams.id) ? {} : members.findOne($stateParams.id)
+          };
+        }]
+      }
+    })
+*/
+    .state('events', {
       url: '/event',
       templateUrl: 'components/event/event.tpl.html',
       controller: 'EventCtrl',

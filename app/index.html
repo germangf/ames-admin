@@ -54,11 +54,11 @@
     <md-divider></md-divider>
 
     <md-list>
-      <md-list-item ui-sref="member" ng-class="{'active': 'member' == page}">
+      <md-list-item ui-sref="members.list" ui-sref-active="active">
         <md-icon class="material-icons white">group</md-icon>
         <p>Socias</p>
       </md-list-item>
-      <md-list-item ui-sref="event" ng-class="{'active': 'event' == page}">
+      <md-list-item ui-sref="events" ui-sref-active="active">
         <md-icon class="material-icons white">event</md-icon>
         <p>Eventos</p>
       </md-list-item>
@@ -110,10 +110,11 @@
   <script src="/components/shared/datepicker/datepicker.directive.js"></script>
   <script src="/components/shared/datepicker/datepicker.js"></script>
   <script src="/components/dashboard/dashboard.ctrl.js"></script>
-  <script src="/components/member/member.directive.js"></script>
-  <script src="/components/member/member.service.js"></script>
-  <script src="/components/member/member.ctrl.js"></script>
-  <script src="/components/member/member-detail.ctrl.js"></script>
+  <script src="/components/members/members.directive.js"></script>
+  <script src="/components/members/members.service.js"></script>
+  <script src="/components/members/members.ctrl.js"></script>
+  <script src="/components/members/members-list.ctrl.js"></script>
+  <script src="/components/members/members-detail.ctrl.js"></script>
   <script src="/components/event/event.service.js"></script>
   <script src="/components/event/event.ctrl.js"></script>
   <script src="/components/event/event-detail.ctrl.js"></script>

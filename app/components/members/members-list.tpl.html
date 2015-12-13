@@ -1,5 +1,4 @@
-<section class="filter">
-
+<section>
   <md-toolbar>
     <div class="md-toolbar-tools">
       <md-button ng-click="showFilter()" class="md-icon-button" aria-label="search">
@@ -25,7 +24,7 @@
         </md-input-container>
         <md-input-container flex>
           <label>Apellidos</label>
-          <input ng-model="filterData.surnames">
+          <input ng-model="filterData.lastName">
         </md-input-container>
         <md-input-container flex>
           <label>Email</label>
@@ -71,7 +70,10 @@
         <span>Listado</span>
       </h2>
       <span flex></span>
-      <md-button ui-sref="member.detail" class="md-fab md-accent md-mini md-fab-top-right" aria-label="Add">
+      <!--
+      <md-button ng-click="addMember()" class="md-fab md-accent md-mini md-fab-top-right" aria-label="Add">
+      -->
+      <md-button ui-sref="members.detail({ id: 0 })" class="md-fab md-accent md-mini md-fab-top-right" aria-label="Add">
         <md-icon class="material-icons white">add</md-icon>
       </md-button>
     </div>
@@ -96,8 +98,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr ui-sref="member.detail({ id: member._id })" md-auto-select ng-repeat="member in members">
-            <td>{{member.name}} {{member.surnames}}</td>
+          <tr ui-sref="member({ id: member._id })" md-auto-select ng-repeat="member in members">
+            <td>{{member.name}} {{member.lastName}}</td>
             <td>{{member.email}}</td>
             <td>{{member.phone}}</td>
             <td>{{member.sectionDescription}}</td>
