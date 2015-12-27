@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
 var moment = require('moment');
 
 var MemberSchema = new mongoose.Schema({
@@ -8,7 +9,7 @@ var MemberSchema = new mongoose.Schema({
   phone: String,
   birthday: Date,
   nationality: String,
-  inSwizertlandSince: String,
+  inSwizertlandSince: Date,
   job: {
     title: String,
     company: String
@@ -50,5 +51,6 @@ var MemberSchema = new mongoose.Schema({
     user: String
   }
 });
+MemberSchema.plugin(mongoosePaginate);
 
 mongoose.model('Member', MemberSchema);

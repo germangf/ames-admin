@@ -2,28 +2,67 @@ var mongoose = require('mongoose');
 var express = require('express');
 var router = express.Router();
 var moment = require('moment');
+var querystring = require('querystring');
 
 require('../models/Events');
 var Event = mongoose.model('Event');
 
+
+// GET /members - list of members
+// GET /members?key=vale - search
 router.get('/', function(req, res, next) {
-	Event.find(function(err, events) {
-		if (err) {
-			return next(err);
-		}
-	  res.json(events);
+	console.log('search');
+	var limit = req.query.limit || 10;
+	var options = {
+    sort: sortQuery(req.query),
+    lean: true,
+    offset: req.query.page ? (req.query.page - 1) * limit : 0, 
+    limit: limit
+	};
+	//console.log('--- options');
+	//console.log(options);
+	Event.paginate(filterQuery(req.query), options).then(function(result) {
+	  res.json(result);
 	});
+
 });
 
-router.get('/pending', function(req, res, next) {
-	Event.find({ date: { $gte: moment().toDate() } }, function(err, events) {
-		if (err) {
-			return next(err);
+function filterQuery(query) {
+	var conditions = {};
+	if (query.status) {
+		var status = query.status;
+		if ('PDT' === status) {
+			conditions.date = { $gte: moment().toDate() };
+		} else if ('FNS' === status) {
+			conditions.date = { $le: moment().toDate() };
 		}
-	  res.json(events);
-	});
-});
+	} else {
+		conditions.date = { $gte: moment().toDate() };
+	}	
+	if (query.name) {
+		conditions.name = new RegExp(query.name, 'i');
+	}
+	if (query.section) {
+		conditions['ames.section'] = query.section;
+	}
+	//console.log(conditions);
+	return conditions;
+}
 
+function sortQuery(query) {
+	if (query.order) {
+    var sort = query.order;
+    var direction = 0 === sort.indexOf('-') ? -1 : 1;
+    var orderBy = 1 === direction ? sort : sort.substring(1, sort.length);
+		var conditions = {};
+		conditions[orderBy] = direction;
+		return conditions;
+	}	
+	return { creationDate: -1 };
+
+}
+
+// GET /members/12 - get member 12
 router.get('/:id', function(req, res, next) {
 	Event.find({ '_id': req.params.id }, function(err, event) {
 		if (err) {
@@ -33,9 +72,9 @@ router.get('/:id', function(req, res, next) {
 	});
 });
 
+// POST /members - new member
 router.post('/', function(req, res, next) {
 	var event = new Event(req.body);
-	console.log(event);
 	event.save(function(err, event) {
 		if (err) {
 			return next(err);
@@ -44,7 +83,8 @@ router.post('/', function(req, res, next) {
 	});
 });
 
-router.put('/', function(req, res, next) {
+// PUT /members/12 - update member 12
+router.put('/:id', function(req, res, next) {
 	var event = new Event(req.body);
 	event.update(event, function(err, result) {
 		if (err) {
@@ -54,7 +94,8 @@ router.put('/', function(req, res, next) {
 	});
 });
 
-router.put('/:id', function(req, res, next) {
+// DELETE /members/12 - delete member 12
+router.delete('/:id', function(req, res, next) {
 	var event = new Event(req.body);
 	event.endDate = moment().format('DD.MM.YYYY');
 	event.update(event, function(err, result) {
@@ -62,36 +103,6 @@ router.put('/:id', function(req, res, next) {
 			return next(err);
 		}
 	  res.json(result);
-	});
-});
-
-router.post('/filter', function(req, res, next) {
-	var filterData = req.body;
-	var conditions = [];
-	filterData['startDate'] && conditions.push({ startDate: { $ne: null } });
-	filterData['name'] && conditions.push({ name: new RegExp(filterData['name'], 'i') });
-	filterData['surnames'] && conditions.push({ surnames: new RegExp(filterData['surnames'], 'i') });
-	filterData['email'] && conditions.push({ email: new RegExp(filterData['email'], 'i') });
-	filterData['section'] && conditions.push({ 'ames.section': filterData['section'] });
-	filterData['quotePending'] && conditions.push({ 'ames.quoteYear': { $ne: moment().format('YYYY') } });
-	if (filterData['status']) {
-		var status = filterData['status'];
-		if ('ACT' === status) {
-			conditions.push({ endDate: { $eq: null } });
-		} else if ('REM' === status) {
-			conditions.push({ endDate: { $ne: null } });
-		} else if ('ALL' === status) {}
-			conditions.push({ startDate: { $ne: null } });
-	}
-	console.log(conditions);
-
-	Event.find({ $and: conditions }, function(err, events) {
-		console.log(err);
-		console.log(events);
-		if (err) {
-			return next(err);
-		}
-	  res.json(events);
 	});
 });
 

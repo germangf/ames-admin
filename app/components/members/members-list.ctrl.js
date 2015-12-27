@@ -7,36 +7,35 @@ angular.module('ames-admin')
   // data for select widgets
   $scope.sections = masterdata.getData('sections');
   $scope.memberStatus = masterdata.getData('memberStatus');
+  $scope.quotePendings = masterdata.getData('quotePending');
 
   // members data
   $scope.member = {};
-  $scope.members = resolveData.data;
-  angular.forEach($scope.members, function(value, key) {
-    value.ames.sectionDescription = masterdata.getDescription(value.ames.section, 'sections');
-  });
-  /*
-  resolveData.members.success(function(data) {
-    $scope.members = data;
-    angular.forEach($scope.members, function(value, key) {
-      value.ames.sectionDescription = masterdata.getDescription(value.ames.section, 'sections');
-  });
-  */
+  getMembersInfo($scope, masterdata, resolveData.data);
 
   $scope.filterData = {};
   $scope.showFilterContainer = false;
 
-  // table items
-  $scope.itemsByPage=2;
   // table
   $scope.selected = [];
 
   $scope.query = {
-    filter: '',
-    order: 'name',
-    limit: 5,
+    order: 'creationDate',
+    limit: 10,
     page: 1
   };
 
+  $scope.onOrderChange = function (order) {
+    members.filter($scope.query).success(function(result) {
+      getMembersInfo($scope, masterdata, result);
+    });
+  };
+
+  $scope.onPaginationChange = function (page, limit) {
+    members.filter($scope.query).success(function(result) {
+      getMembersInfo($scope, masterdata, result);
+    });
+  };
 
   $scope.showFilter = function() {
     $scope.showFilterContainer = !$scope.showFilterContainer;
@@ -44,16 +43,25 @@ angular.module('ames-admin')
 
   $scope.filter = function() {
     members.filter($scope.filterData).success(function(result) {
-      $scope.members = result;
+      getMembersInfo($scope, masterdata, result);
     });
   };
 
+/*
   $scope.addMember = function() {
     $scope.showList = false;
-    /*
-    $scope.members.push($scope.member);
-    $scope.member = {};
-    */
   };
+*/
 
 }]);
+
+function getMembersInfo($scope, masterdata, result) {
+  $scope.members = result.docs;
+  //console.log($scope.members);
+  $scope.membersTotal = result.total;
+  angular.forEach($scope.members, function(value, key) {
+    if (value.ames && value.ames.section) {
+      value.ames.sectionDescription = masterdata.getDescription(value.ames.section, 'sections');
+    }
+  });
+}

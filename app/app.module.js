@@ -1,5 +1,5 @@
 'use strict';
 
 angular.module('ames-admin',
-  ['ui.router', 'ngMaterial', 'angularMoment', 'md.data.table']);
-//  ['ui.router', 'ngMdIcons', 'ngMaterial', 'smart-table', 'angularMoment', 'ng-mfb']);
+  ['ui.router', 'ngMaterial', 'ngAnimate', 'ngAria', 'angularMoment', 'md.data.table', 'mdPickers', 
+  'pascalprecht.translate', 'tmh.dynamicLocale', 'ngSanitize', 'ngCookies']);

@@ -8,53 +8,75 @@ require('../models/Members');
 var Member = mongoose.model('Member');
 
 // GET /members - list of members
+// GET /members?key=vale - search
 router.get('/', function(req, res, next) {
-	console.log('list of members');
-	console.log(req.query);
-	
-	var conditions = [];
-	if (req.query.status) {
-		var status = req.query.status;
-		if ('ACT' === status) {
-			conditions.push({ endDate: { $eq: null } });
-		} else if ('REM' === status) {
-			conditions.push({ endDate: { $ne: null } });
-		} else if ('ALL' === status) {}
-			conditions.push({ startDate: { $ne: null } });
-	} else {
-		conditions.push({ endDate: { $eq: null } });
-	}	
-	if (req.query.name) {
-		conditions.push({ name: new RegExp(req.query.name, 'i') });
-	}
-	if (req.query.lastName) {
-		conditions.push({ lastName: new RegExp(req.query.lastName, 'i') });
-	}
-	if (req.query.email) {
-		conditions.push({ email: new RegExp(req.query.email, 'i') });
-	}
-	if (req.query['ames.section']) {
-		conditions.push({ 'ames.section': req.query.ames.section });
-	}
-	if (req.query['ames.quoteYear']) {
-		conditions.push({ 'ames.quoteYear': { $ne: moment().format('YYYY') } });
-	}
-	console.log(conditions);
-
-	Member.find({ $and: conditions }, function(err, members) {
-		if (err) {
-			return next(err);
-		}
-	  res.json(members);
+	var limit = req.query.limit || 10;
+	var options = {
+    sort: sortQuery(req.query),
+    lean: true,
+    offset: req.query.page ? (req.query.page - 1) * limit : 0, 
+    limit: limit
+	};
+	//console.log('--- options');
+	//console.log(options);
+	Member.paginate(filterQuery(req.query), options).then(function(result) {
+	  res.json(result);
 	});
+
 });
+
+function filterQuery(query) {
+	var conditions = {};
+	if (query.status) {
+		var status = query.status;
+		if ('ACT' === status) {
+			conditions.endDate = { $eq: null };
+		} else if ('REM' === status) {
+			conditions.endDate = { $ne: null };
+		} else if ('ALL' === status) {
+			conditions.startDate = { $ne: null };
+		}
+	} else {
+		conditions.endDate = { $eq: null };
+	}	
+	if (query.name) {
+		conditions.name = new RegExp(query.name, 'i');
+	}
+	if (query.lastName) {
+		conditions.lastName = new RegExp(query.lastName, 'i');
+	}
+	if (query.email) {
+		conditions.email = new RegExp(query.email, 'i');
+	}
+	if (query.section) {
+		conditions['ames.section'] = query.section;
+	}
+	if (query.quotePending) {
+		if ('CRT' === query.quotePending) {
+			conditions['ames.quoteYear'] = { $eq: moment().format('YYYY') };
+		} else if ('PDT' === query.quotePending) {
+			conditions['ames.quoteYear'] = { $ne: moment().format('YYYY') };
+		}
+	}
+	return conditions;
+}
+
+function sortQuery(query) {
+	if (query.order) {
+    var sort = query.order;
+    var direction = 0 === sort.indexOf('-') ? -1 : 1;
+    var orderBy = 1 === direction ? sort : sort.substring(1, sort.length);
+		var conditions = {};
+		conditions[orderBy] = direction;
+		return conditions;
+	}	
+	return { creationDate: -1 };
+
+}
 
 // GET /members/12 - get member 12
 router.get('/:id', function(req, res, next) {
-	console.log('get member 12');
 	Member.find({ '_id': req.params.id }, function(err, member) {
-		console.log(err);
-		console.log(member);
 		if (err) {
 			return next(err);
 		}
@@ -86,64 +108,12 @@ router.put('/:id', function(req, res, next) {
 
 // DELETE /members/12 - delete member 12
 router.delete('/:id', function(req, res, next) {
-	var member = new Member(req.body);
-	member.endDate = moment().format('DD.MM.YYYY');
-	member.update(member, function(err, result) {
+	Member.update(req.params.id, { $set: { endDate: moment().toDate() }}, function(err, result) {
 		if (err) {
 			return next(err);
 		}
 	  res.json(result);
 	});
 });
-
-// GET /members?key=vale - search
-router.get('/', function(req, res, next) {
-	console.log('search');
-	console.log(req.query);
-	for (var key in req.query) {
-		console.log(key);
-	}
-	console.log(querystring.stringify(req.query));
-});
-
-/*
-router.post('/filter', function(req, res, next) {
-	var filterData = req.body;
-	var conditions = [];
-	filterData['startDate'] && conditions.push({ startDate: { $ne: null } });
-	filterData['name'] && conditions.push({ name: new RegExp(filterData['name'], 'i') });
-	filterData['surnames'] && conditions.push({ surnames: new RegExp(filterData['surnames'], 'i') });
-	filterData['email'] && conditions.push({ email: new RegExp(filterData['email'], 'i') });
-	filterData['section'] && conditions.push({ 'ames.section': filterData['section'] });
-	filterData['quotePending'] && conditions.push({ 'ames.quoteYear': { $ne: moment().format('YYYY') } });
-	if (filterData['status']) {
-		var status = filterData['status'];
-		if ('ACT' === status) {
-			conditions.push({ endDate: { $eq: null } });
-		} else if ('REM' === status) {
-			conditions.push({ endDate: { $ne: null } });
-		} else if ('ALL' === status) {}
-			conditions.push({ startDate: { $ne: null } });
-	} 
-	console.log(conditions);
-
-	Member.find({ $and: conditions }, function(err, members) {
-		console.log(err);
-		console.log(members);
-		if (err) {
-			return next(err);
-		}
-	  res.json(members);
-	});
-});
-router.get('/active', function(req, res, next) {
-	Member.find({ endDate: { $eq: null } }, function(err, members) {
-		if (err) {
-			return next(err);
-		}
-	  res.json(members);
-	});
-});
-*/
 
 module.exports = router;

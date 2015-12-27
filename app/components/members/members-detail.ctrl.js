@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('ames-admin')
-.controller('MembersDetailCtrl', ['$scope', '$state', 'resolveData', 'members', 'moment', 'masterdata',
-  function($scope, $state, members, resolveData, moment, masterdata) {
+.controller('MembersDetailCtrl', ['$scope', '$state', '$mdDatePicker', 'members', 'resolveData', 'moment', 'masterdata',
+  function($scope, $state, $mdDatePicker, members, resolveData, moment, masterdata) {
 
   $scope.cantons = masterdata.getData('cantons');
   $scope.memberHows = masterdata.getData('memberHows');
@@ -11,29 +11,31 @@ angular.module('ames-admin')
   $scope.nationalities = masterdata.getData('nationalities');
   $scope.educationLevels = masterdata.getData('educationLevels');
 
-  $scope.member = resolveData.data;
-  /*
-  resolveData.members.success(function(data) {
-    $scope.member = data;
-    console.log($scope.member);
-  });
-  */
+  $scope.member = resolveData ? resolveData.data[0] : {};
+  $scope.member.birthday = moment($scope.member.birthday).toDate();
+  $scope.member.inSwizertlandSince = moment($scope.member.inSwizertlandSince).toDate();
+
+  $scope.showPicker = function(event, ngModel) {
+    $scope.member = $scope.member || {};
+    $mdDatePicker(event, $scope.member[ngModel])
+      .then(function(selectedDate) {
+        $scope.member[ngModel] = selectedDate;
+      });
+  };
 
   $scope.save = function() {
-    $scope.member.birthday = moment($scope.event.birthdayUI, 'DD.MM.YYYY').toDate();
     members.save($scope.member);
-    $state.go('member.list');
+    $state.go('members.list');
   };
 
   $scope.update = function() {
-    $scope.member.birthday = moment($scope.event.birthdayUI, 'DD.MM.YYYY').toDate();
     members.update($scope.member);
-    $state.go('member.list');
+    $state.go('members.list');
   };
 
-  $scope.remove = function() {
-    members.remove($scope.member);
-    $state.go('member.list');
+  $scope.delete = function() {
+    members.delete($scope.member);
+    $state.go('members.list');
   };
 
 }]);

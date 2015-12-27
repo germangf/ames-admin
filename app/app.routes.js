@@ -25,7 +25,7 @@ angular.module('ames-admin')
       controller: 'MembersListCtrl',
       resolve: {
         resolveData: ['members', function(members) {
-          return members.findActive();
+          return members.filter({ status: 'ACT' });
         }]
       }
     })
@@ -36,60 +36,38 @@ angular.module('ames-admin')
       controller: 'MembersDetailCtrl',
       resolve: {
         resolveData: ['$stateParams', 'members', function($stateParams, members) {
-          if (0 !== parseInt($stateParams.id)) {
+          if ('0' !== $stateParams.id) {
             return members.findOne($stateParams.id);
           }
         }]
       }
     })
 
-
-/*
-    .state('members', {
-      url: '/members',
-      templateUrl: 'components/members/members.tpl.html',
-      controller: 'MembersCtrl',
-      resolve: {
-        resolveData: ['$stateParams', 'members', function($stateParams, members) {
-          return {
-            'showList': true,
-            'members': members.findActive()
-          };
-        }]
-      }
-    })
-    .state('members.detail', {
-      url: '/:id',
-      templateUrl: 'components/members/members.tpl.html',
-      controller: 'MembersDetailCtrl',
-      resolve: {
-        resolveData: ['$stateParams', 'members', function($stateParams, members) {
-          return {
-            'showList': false,
-            'members': 0 === parseInt($stateParams.id) ? {} : members.findOne($stateParams.id)
-          };
-        }]
-      }
-    })
-*/
     .state('events', {
-      url: '/event',
-      templateUrl: 'components/event/event.tpl.html',
-      controller: 'EventCtrl',
+      abstract: true,
+      url: '/events',
+      templateUrl: 'components/events/events.tpl.html',
+      controller: 'EventsCtrl'
+    })
+    .state('events.list', {
+      parent: 'events',
+      url: '/',
+      templateUrl: 'components/events/events-list.tpl.html',
+      controller: 'EventsListCtrl',
       resolve: {
-        resultData: ['events', function(events) {
-          return events.findPending();
+        resolveData: ['events', function(events) {
+          return events.filter({ status: 'PDT' });
         }]
       }
     })
-    .state('event.detail', {
-      parent: 'event',
+    .state('events.detail', {
+      parent: 'events',
       url: '/:id',
-      templateUrl: 'components/event/event-detail.tpl.html',
-      controller: 'EventDetailCtrl',
+      templateUrl: 'components/events/events-detail.tpl.html',
+      controller: 'EventsDetailCtrl',
       resolve: {
         resultData: ['$stateParams', 'events', function($stateParams, events) {
-          if ($stateParams.id) {
+          if ('0' !== $stateParams.id) {
             return events.findOne($stateParams.id);
           }
         }]

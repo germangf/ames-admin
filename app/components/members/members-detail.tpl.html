@@ -10,7 +10,7 @@
           </md-input-container>
           <md-input-container flex>
             <label>Apellidos</label>
-            <input ng-model="member.surnames">
+            <input ng-model="member.lastName">
           </md-input-container>
           <md-input-container flex>
             <label>Email</label>
@@ -22,8 +22,16 @@
           </md-input-container>
         </div>
         <div layout layout-sm="column">
-          <c-md-datepicker ng-model="member.birthday" label="Fecha nacimiento" iclass="grey-600"
-            separator="." save="Guardar" cancel="Cancelar"></c-md-datepicker>
+          <md-input-container class="datepicker-container">
+            <md-button ng-click="showPicker($event, 'birthday')" class="md-icon-button" aria-label="show date">
+              <md-icon class="material-icons">today</md-icon>
+            </md-button>
+          </md-input-container>
+          <md-input-container>
+            <label>Fecha nacimiento</label>
+            <input type="date" ng-model="member.birthday" />
+          </md-input-container>
+    
           <md-input-container flex>
             <label>Nacionalidad</label>
             <md-select ng-model="member.nationality">
@@ -32,8 +40,16 @@
               </md-option>
             </md-select>
           </md-input-container>
-          <c-md-datepicker ng-model="member.inSwizertlandSince" label="En Suiza desde" iclass="grey-600"
-            separator="." save="Guardar" cancel="Cancelar"></c-md-datepicker>
+          <md-input-container class="datepicker-container">
+            <md-button ng-click="showPicker($event, 'inSwizertlandSince')" class="md-icon-button" aria-label="show date">
+              <md-icon class="material-icons">today</md-icon>
+            </md-button>
+          </md-input-container>
+          <md-input-container>
+            <label>En Suiza desde</label>
+            <input type="date" ng-model="member.inSwizertlandSince" />
+          </md-input-container>
+
         </div>
         <div layout layout-sm="column">
           <md-input-container flex>
@@ -200,7 +216,7 @@
   </md-content>
   <md-content class="layout-row flex" layout-align="end center">
     <md-button type="submit" class="md-raised md-primary">Guardar</md-button>
-    <md-button ng-click="remove()" class="md-raised md-warn">Eliminar</md-button>
+    <md-button ng-click="delete()" class="md-raised md-warn">Eliminar</md-button>
   </md-content>
 
 </form>
