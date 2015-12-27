@@ -1,0 +1,82 @@
+<form novalidate="" ng-submit="event._id ? update() : save()" class="md-inline-form">
+  <md-content class="event">
+    <md-tabs md-dynamic-height md-border-bottom>
+      <!-- PERFIL -->
+      <md-tab label="Evento">
+        <div layout layout-sm="column">
+          <md-input-container flex>
+            <label>Tipo</label>
+            <md-select ng-model="event.type">
+              <md-option ng-repeat="type in eventTypes" value="{{type.code}}">
+                {{type.description}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container flex>
+            <label>Nombre</label>
+            <input ng-model="event.name">
+          </md-input-container>
+        </div>
+
+        <div layout layout-sm="column">
+          <md-input-container flex>
+            <label>Lugar</label>
+            <input ng-model="event.location">
+          </md-input-container>
+
+          <md-input-container class="datepicker-container">
+            <md-button ng-click="showPicker($event, 'date')" class="md-icon-button" aria-label="show date">
+              <md-icon class="material-icons">today</md-icon>
+            </md-button>
+          </md-input-container>
+          <md-input-container>
+            <label>Fecha</label>
+            <input type="date" ng-model="event.date" />
+          </md-input-container>
+        </div>
+
+        <div layout layout-sm="column">
+          <md-input-container flex>
+            <label>Responsable</label>
+            <input ng-model="event.personInCharge">
+          </md-input-container>
+          <md-input-container flex>
+            <label>Sección</label>
+            <md-select ng-model="event.section">
+              <md-option ng-repeat="section in sections" value="{{section.code}}">
+                {{section.description}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+
+        <div layout layout-sm="column">
+          <md-input-container flex>
+            <label>Realizado por</label>
+            <input ng-model="event.personWhoExecutes" required>
+          </md-input-container>
+        </div>
+      </md-tab>
+
+      <md-tab label="Participantes">
+        <h3>Under working</h3>
+      </md-tab>
+
+     <!-- ASOCIACION -->
+      <md-tab label="Prevision gastos">
+        <h3>Under working</h3>
+      </md-tab>
+
+     <!-- FORMACION -->
+      <md-tab label="Facturación">
+        <h3>Under working</h3>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+
+  <md-content class="layout-row flex" layout-align="end center">
+    <md-button type="submit" class="md-raised md-primary">Guardar</md-button>
+    <md-button ng-click="remove()" class="md-raised md-warn">Eliminar</md-button>
+  </md-content>
+
+</form>

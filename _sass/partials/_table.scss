@@ -1,0 +1,7 @@
+table[md-data-table] {
+  &>tbody {
+    &>tr {
+      cursor: pointer;
+    }
+  }
+}
