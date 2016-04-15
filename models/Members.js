@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
-var mongoosePaginate = require('mongoose-paginate');
 var moment = require('moment');
 
 var MemberSchema = new mongoose.Schema({
+  creationDate: { type: Date, default: moment().toDate() },
   name: String,
   lastName: String,
   email: String,
@@ -16,7 +16,7 @@ var MemberSchema = new mongoose.Schema({
   },
   startDate: { type: Date, default: moment().toDate() },
   startYear: { type: String, default: moment().format('YYYY') },
-  endDate: Date,
+  endDate: { type: Date },
   address: {
     street: String,
     plz: Number,
@@ -51,6 +51,5 @@ var MemberSchema = new mongoose.Schema({
     user: String
   }
 });
-MemberSchema.plugin(mongoosePaginate);
 
 mongoose.model('Member', MemberSchema);

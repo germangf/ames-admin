@@ -9,7 +9,30 @@ angular.module('ames-admin')
     .state('dashboard', {
       url: '/',
       templateUrl: 'components/dashboard/dashboard.tpl.html',
-      controller: 'DashboardCtrl'
+      controller: 'DashboardCtrl',
+      resolve: {
+        count: ['members', function(members) {
+          return members.filter();
+        }],
+        countPending: ['members', function(members) {
+          return members.filter({ 'quotePending': 'PDT' });
+        }],
+        countBS: ['members', function(members) {
+          return members.filter({ 'section': 'BS' });
+        }],
+        countBE: ['members', function(members) {
+          return members.filter({ 'section': 'BE' });
+        }],
+        countGE: ['members', function(members) {
+          return members.filter({ 'section': 'GE' });
+        }],
+        countLS: ['members', function(members) {
+          return members.filter({ 'section': 'LS' });
+        }],
+        countZH: ['members', function(members) {
+          return members.filter({ 'section': 'ZH' });
+        }]
+      }
     })
 
     .state('members', {

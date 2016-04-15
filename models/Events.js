@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var mongoosePaginate = require('mongoose-paginate');
 var moment = require('moment');
 
 var EventSchema = new mongoose.Schema({
@@ -12,6 +11,5 @@ var EventSchema = new mongoose.Schema({
   date: Date,
   personWhoExecutes: String
 });
-EventSchema.plugin(mongoosePaginate);
 
 mongoose.model('Event', EventSchema);

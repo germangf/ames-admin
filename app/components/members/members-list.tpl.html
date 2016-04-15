@@ -90,7 +90,7 @@
             <th name="Email" order-by="email"></th>
             <th numeric name="Teléfono" order-by="phone"></th>
             <th name="Sección" order-by="ames.section"></th>
-            <th numeric name="Cuota pago" order-by="quoteYear"></th>
+            <th numeric name="Cuota pago" order-by="ames.quoteYear"></th>
           </tr>
         </thead>
         <tbody>
@@ -105,7 +105,7 @@
       </table>
     </md-data-table-container>
 
-    <md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{membersTotal}}" md-trigger="onPaginationChange"></md-data-table-pagination>
+    <md-data-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{count}}" md-trigger="onPaginationChange"></md-data-table-pagination>
 
   </md-content>
 </section>

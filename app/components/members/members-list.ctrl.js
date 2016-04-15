@@ -11,7 +11,9 @@ angular.module('ames-admin')
 
   // members data
   $scope.member = {};
-  getMembersInfo($scope, masterdata, resolveData.data);
+  $scope.members = resolveData.data.members;
+  $scope.count = resolveData.data.count;
+  setDescriptions($scope, masterdata);
 
   $scope.filterData = {};
   $scope.showFilterContainer = false;
@@ -26,14 +28,18 @@ angular.module('ames-admin')
   };
 
   $scope.onOrderChange = function (order) {
-    members.filter($scope.query).success(function(result) {
-      getMembersInfo($scope, masterdata, result);
+    members.filter(mergeFilters($scope)).success(function(result) {
+      $scope.members = result.members;
+      $scope.count = result.count;
+      setDescriptions($scope, masterdata);
     });
   };
 
   $scope.onPaginationChange = function (page, limit) {
-    members.filter($scope.query).success(function(result) {
-      getMembersInfo($scope, masterdata, result);
+    members.filter(mergeFilters($scope)).success(function(result) {
+      $scope.members = result.members;
+      $scope.count = result.count;
+      setDescriptions($scope, masterdata);
     });
   };
 
@@ -42,23 +48,23 @@ angular.module('ames-admin')
   };
 
   $scope.filter = function() {
-    members.filter($scope.filterData).success(function(result) {
-      getMembersInfo($scope, masterdata, result);
+    $scope.query.page = 1;
+    members.filter(mergeFilters($scope)).success(function(result) {
+      $scope.members = result.members;
+      $scope.count = result.count;
+      setDescriptions($scope, masterdata);
     });
   };
-
-/*
-  $scope.addMember = function() {
-    $scope.showList = false;
-  };
-*/
-
 }]);
 
-function getMembersInfo($scope, masterdata, result) {
-  $scope.members = result.docs;
-  //console.log($scope.members);
-  $scope.membersTotal = result.total;
+function mergeFilters($scope) {
+  var merged = {};
+  angular.merge(merged, $scope.filterData);
+  angular.merge(merged, $scope.query);
+  return merged;
+}
+
+function setDescriptions($scope, masterdata) {
   angular.forEach($scope.members, function(value, key) {
     if (value.ames && value.ames.section) {
       value.ames.sectionDescription = masterdata.getDescription(value.ames.section, 'sections');

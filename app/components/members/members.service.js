@@ -27,7 +27,7 @@ angular.module('ames-admin')
 	};
 
 	this.delete = function(member) {
-		return $http.delete('/members/' + member._id, member);
+		return $http.delete('/members/' + member._id);
 	};
 
 	this.filter = function(filterData) {
