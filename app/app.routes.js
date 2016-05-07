@@ -41,14 +41,25 @@ angular.module('ames-admin')
       templateUrl: 'components/members/members.tpl.html',
       controller: 'MembersCtrl'
     })
-    .state('members.list', {
+    .state('members.active', {
       parent: 'members',
       url: '/',
-      templateUrl: 'components/members/members-list.tpl.html',
-      controller: 'MembersListCtrl',
+      templateUrl: 'components/members/members-active.tpl.html',
+      controller: 'MembersActiveCtrl',
       resolve: {
         resolveData: ['members', function(members) {
-          return members.filter({ status: 'ACT' });
+          return members.filter({ status: ['MEMBER', 'MEMBER'] });
+        }]
+      }
+    })
+    .state('members.inactive', {
+      parent: 'members',
+      url: '/not',
+      templateUrl: 'components/members/members-inactive.tpl.html',
+      controller: 'MembersInactiveCtrl',
+      resolve: {
+        resolveData: ['members', function(members) {
+          return members.filter({ status: ['NO_MEMBER', 'EX_MEMBER'] });
         }]
       }
     })
@@ -79,7 +90,7 @@ angular.module('ames-admin')
       controller: 'EventsListCtrl',
       resolve: {
         resolveData: ['events', function(events) {
-          return events.filter({ status: 'PDT' });
+          return events.filter({ status: 'CREATED' });
         }]
       }
     })
@@ -89,7 +100,7 @@ angular.module('ames-admin')
       templateUrl: 'components/events/events-detail.tpl.html',
       controller: 'EventsDetailCtrl',
       resolve: {
-        resultData: ['$stateParams', 'events', function($stateParams, events) {
+        resolveData: ['$stateParams', 'events', function($stateParams, events) {
           if ('0' !== $stateParams.id) {
             return events.findOne($stateParams.id);
           }

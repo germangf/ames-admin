@@ -1,3 +1,53 @@
+<section class="content-box-large">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn btn-primary" ui-sref="events.detail({ id: 0 })">
+          <i class="glyphicon glyphicon-plus"></i>  Añadir
+        </button>
+      </div>
+      <div class="col-md-6">
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+      <table cellpadding="0" cellspacing="0" border="0" class="table table-striped hover" datatable="ng" dt-options="dtOptions">
+        <thead>
+          <tr>
+            <th>Titulo</th>
+            <th>Día / Hora</th>
+            <th>Sección</th>
+            <th>Adjunta / Organizadora</th>
+            <th>Estado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="event in events">
+            <td>{{event.title}}</td>
+            <td>{{event.date}}</td>
+            <td>{{event.sectionDescription}}</td>
+            <td>{{event.organizer}}</td>
+            <td>{{event.status}}</td>
+            <td>
+              <a ui-sref="events.detail({ id: event._id })">
+                <i class="glyphicon glyphicon-eye-open"></i> Detalle
+              </a>
+              &nbsp;&nbsp;
+              <a ng-show="{{'active' == status}}" href ng-click="deactivate($index, event)">
+                <i class="glyphicon glyphicon-thumbs-down"></i> Dar de baja
+              </a>
+              <a ng-show="{{'inactive' == status}}" href ng-click="activate($index, event)">
+                <i class="glyphicon glyphicon-thumbs-up"></i> Hacer Socia
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>'
+  </div>
+</section>
+
+<!--
 <section>
   <md-toolbar>
     <div class="md-toolbar-tools">
@@ -22,16 +72,6 @@
           <label>Nombre</label>
           <input ng-model="filterData.name">
         </md-input-container>
-        <!-- 
-        <md-input-container flex>
-          <label>Apellidos</label>
-          <input ng-model="filterData.lastName">
-        </md-input-container>
-        <md-input-container flex>
-          <label>Email</label>
-          <input ng-model="filterData.email">
-        </md-input-container>
-        -->
       </div>
       <div layout layout-sm="column">
         <md-input-container flex>
@@ -42,16 +82,6 @@
             </md-option>
           </md-select>
         </md-input-container>
-        <!-- 
-        <md-input-container flex>
-          <label>Cuota</label>
-          <md-select ng-model="filterData.quotePending">
-            <md-option ng-repeat="quotePending in quotePendings" value="{{quotePending.code}}">
-              {{quotePending.description}}
-            </md-option>
-          </md-select>
-        </md-input-container>
-        -->
         <md-input-container flex>
           <label>Estado</label>
           <md-select ng-model="filterData.status">
@@ -67,8 +97,9 @@
     </form>
   </md-content>
 </section>
+-->
 <br>
-
+<!--
 <section>
   <md-toolbar>
     <div class="md-toolbar-tools">
@@ -113,3 +144,4 @@
 
   </md-content>
 </section>
+-->

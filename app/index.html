@@ -5,106 +5,135 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ames-admin</title>
+  <title>Asociación de Mujeres Españolas en Suiza</title>
   <link rel="icon" href="img/favicon.ico">
   <link rel="author" href="humans.txt">
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<!--
-  <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+  <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/datatables/media/css/dataTables.bootstrap.min.css"/>
 
-  <link rel="stylesheet prefetch" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
--->
-  <link rel="stylesheet" href="/angular-material/angular-material.css"/>
-
-  <link rel="stylesheet" href="/angular-material-data-table/dist/md-data-table.min.css"/>
-  <link rel="stylesheet" href="/mdPickers/dist/mdPickers.min.css"/>
-
-  <!--
-  <link rel="stylesheet" href="/angular-material-icons/angular-material-icons.css"/>
-  -->
-<!--
-  <link rel="stylesheet" href="/components/shared/datepicker/datepicker.css"/>
-
-  <link rel="stylesheet" href="/css/docs.css"/>
   <link rel="stylesheet" href="/css/styles.css"/>
-
-  <style>
-  .st-sort-ascent:before{
-    content: '\25B2';
+  <link rel="stylesheet" href="/css/main.css"/>
+  <style type="text/css">
+  form .tab-pane {
+    margin: 20px 10px;
   }
-
-  .st-sort-descent:before{
-    content: '\25BC';
+  input.date {
+    padding: 12px 6px 12px 12px;
+  }
+  table.hover tr:hover {
+    background-color: #ececec;
+  }
+  .sidebar .nav > li > a.active {
+    color: #555;
+  }
+  .ex-member {
+    color: red;
+  }
+  .multiselect-parent.btn-group {
+    display: block;
+  }
+  .multiselect-parent.btn-group .caret {
+    float: right;
+    margin-top: 8px;
   }
   </style>
--->
-  <link rel="stylesheet" href="/css/main.css"/>
 </head>
-<body ng-app="ames-admin" ng-cloak layout="row">
 
-  <md-sidenav class="md-sidenav-left md-whiteframe-z2 sidenav" md-component-id="left"
-    md-is-locked-open="$mdMedia('gt-sm')">
-    <header class="nav-header">
-      <a ui-sref="dashboard">
-        <img src="img/logo_ames.png" alt="">
-      </a>
-    </header>
-    <md-subheader class="md-no-sticky">Dashboard</md-subheader>
-    <md-divider></md-divider>
+<body ng-app="ames-admin">
 
-    <md-list>
-      <md-list-item ui-sref="members.list" ui-sref-active="active">
-        <md-icon class="material-icons white">group</md-icon>
-        <p>{{'index.members' | translate}}</p>
-      </md-list-item>
-      <md-list-item ui-sref="events.list" ui-sref-active="active">
-        <md-icon class="material-icons white">event</md-icon>
-        <p>{{'index.events' | translate}}</p>
-      </md-list-item>
-    </md-list>
-
-    <md-divider></md-divider>
-  </md-sidenav>
-
-  <div flex layout="column" tabIndex="-1" role="main">
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-        <md-button class="md-icon-button" aria-label="Settings">
-          <md-icon class="material-icons white">menu</md-icon>
-        </md-button>
-        <h2>
-          <span>Toolbar with Icon Buttons</span>
-        </h2>
-        <span flex></span>
-        <md-button class="md-icon-button" aria-label="Favorite">
-          <md-icon class="material-icons white">favorite</md-icon>
-        </md-button>
-        <md-button class="md-icon-button" aria-label="More">
-          <md-icon class="material-icons white">more_vert</md-icon>
-        </md-button>
-        <div ng-translate-language-select></div>
+  <div class="header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+          <!-- Logo -->
+          <div class="logo">
+            <h1><a ui-sref="dashboard">Asociación de Mujeres Españolas en Suiza</a></h1>
+          <!--
+            <img src="img/logo_ames.png" alt="">
+          -->
+          </div>
+        </div>
+        <div class="col-md-3">
+        <!--
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="input-group form">
+                <input type="text" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button">Search</button>
+                </span>
+              </div>
+            </div>
+          </div>
+        -->
+        </div>
+        <div class="col-md-2">
+          <div class="navbar navbar-inverse" role="banner">
+            <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+              <ul class="nav navbar-nav">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
+                  <ul class="dropdown-menu animated fadeInUp">
+                    <li><a href="profile.html">Profile</a></li>
+                    <li><a href="login.html">Logout</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
       </div>
-    </md-toolbar>
-
-    <md-content md-scroll-y class="layout-padding flex">
-      <div ui-view class="layout-content"></div>
-    </md-content>
+    </div>
   </div>
 
+  <div class="page-content">
+    <div class="row">
+
+      <!-- menu -->
+      <div class="col-md-2">
+        <div class="sidebar content-box" style="display: block;">
+          <ul class="nav">
+            <!-- Main menu -->
+            <li>
+              <a ui-sref="dashboard" ui-sref-active="active"><i class="glyphicon glyphicon-home"></i> Dashboard</a>
+            </li>
+            <li>
+              <a ui-sref="members.inactive" ui-sref-active="active"><i class="glyphicon glyphicon-user"></i> No Socias</a>
+            </li>
+            <li>
+              <a ui-sref="members.active" ui-sref-active="active"><i class="glyphicon glyphicon-user"></i> Socias</a>
+            </li>
+            <li>
+              <a ui-sref="events.list" ui-sref-active="active"><i class="glyphicon glyphicon-calendar"></i> Eventos</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- content -->
+      <div class="col-md-10">
+        <div ui-view></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/jquery/dist/jquery.min.js"></script>
+  <script src="/datatables/media/js/jquery.dataTables.min.js"></script>
 
   <script src="/angular/angular.min.js"></script>
-  <script src="/angular-ui-router/release/angular-ui-router.min.js"></script>
-  <script src="/angular-material/angular-material.min.js"></script>
-  <script src="/angular-material-icons/angular-material-icons.min.js"></script>
+  <script src="/angular-datatables/dist/angular-datatables.js"></script>
+  <script src="/datatables/media/js/dataTables.bootstrap.min.js"></script>
+  <!--
   <script src="/angular-animate/angular-animate.min.js"></script>
   <script src="/angular-aria/angular-aria.min.js"></script>
+  -->
+  <script src="/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 
-  <script src="/moment/min/moment-with-locales.min.js"></script>
-  <script src="/angular-moment/angular-moment.min.js"></script>
-  <script src="/angular-material-data-table/dist/md-data-table.min.js"></script>
-  <script src="/mdPickers/dist/mdPickers.min.js"></script>
+  <script src="/angular-ui-router/release/angular-ui-router.min.js"></script>
+
+
+  <!-- translate -->
+  <!--
   <script src="/angular-translate/angular-translate.min.js"></script>
   <script src="/angular-dynamic-locale/dist/tmhDynamicLocale.min.js"></script>
   <script src="/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
@@ -113,25 +142,41 @@
   <script src="/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
   <script src="/angular-translate-handler-log/angular-translate-handler-log.min.js"></script>
   <script src="/angular-sanitize/angular-sanitize.min.js"></script>
-  <script src="/angular-google-chart/ng-google-chart.min.js"></script>
+  <script src="/services/locale.service.js"></script>
+  <script src="/directives/translate.directive.js"></script>
+  -->
 
+
+  <!-- app -->
   <script src="app.module.js"></script>
   <script src="app.routes.js"></script>
+  <!--
   <script src="app.i18n.js"></script>
-  <script src="/directives/translate.directive.js"></script>
+  -->
+
+  <script src="/directives/language.directive.js"></script>
+  <script src="/directives/form-actions.directive.js"></script>
+  <script src="/directives/members-table.directive.js"></script>
   <script src="/services/masterdata.service.js"></script>
-  <script src="/services/locale.service.js"></script>
 
   <script src="/components/dashboard/dashboard.ctrl.js"></script>
-  
+
   <script src="/components/members/members.directive.js"></script>
   <script src="/components/members/members.service.js"></script>
   <script src="/components/members/members.ctrl.js"></script>
-  <script src="/components/members/members-list.ctrl.js"></script>
+  <script src="/components/members/members-active.ctrl.js"></script>
+  <script src="/components/members/members-inactive.ctrl.js"></script>
   <script src="/components/members/members-detail.ctrl.js"></script>
-  
+
   <script src="/components/events/events.service.js"></script>
   <script src="/components/events/events.ctrl.js"></script>
   <script src="/components/events/events-list.ctrl.js"></script>
   <script src="/components/events/events-detail.ctrl.js"></script>
+
+  <script src="/underscore/underscore-min.js"></script>
+  <script src="/angular-underscore-module/angular-underscore-module.js"></script>
+  <script src="/angularjs-dropdown-multiselect/src/angularjs-dropdown-multiselect.js"></script>
+
+  <script src="/js/main.js"></script>
+
 </html>

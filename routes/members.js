@@ -62,49 +62,22 @@ router.delete('/:id', function(req, res, next) {
 });
 
 function filter(req, res, next) {
-	var limit = req.query.limit || 10;
-	var options = {
-    sort: req.query.order ? req.query.order : '-creationDate',
-    lean: true,
-    offset: req.query.page ? (req.query.page - 1) * limit : 0, 
-    limit: limit
-	};
-
 	var query = filterQuery(req.query);
+	console.log(query);
 
 	Member
 		.find(query)
-		.count()
 		.exec()
-		.then(function(count) {
-  		var result = { count : count }
-  		return Member
-  			.find(query)
-		    .skip(options.offset)
-		    .limit(options.limit)
-		    .sort(options.sort)
-		    .exec()
-		  	.then(function(members) {
-		  		result.members = members;
-  				res.json(result);
-  			});
+		.then(function(result) {
+			res.json(result);
   	});
 }
 
 function filterQuery(query) {
 	var conditions = {};
 	if (query.status) {
-		var status = query.status;
-		if ('ACT' === status) {
-			conditions.endDate = { $eq: null };
-		} else if ('REM' === status) {
-			conditions.endDate = { $ne: null };
-		} else if ('ALL' === status) {
-			conditions.startDate = { $ne: null };
-		}
-	} else {
-		conditions.endDate = { $eq: null };
-	}	
+		conditions.status = { $in: query.status };
+	}
 	if (query.name) {
 		conditions.name = new RegExp(query.name, 'i');
 	}
@@ -117,26 +90,16 @@ function filterQuery(query) {
 	if (query.section) {
 		conditions['ames.section'] = query.section;
 	}
+	console.log(query.quotePending);
 	if (query.quotePending) {
 		if ('CRT' === query.quotePending) {
-			conditions['ames.quoteYear'] = { $eq: moment().format('YYYY') };
+			conditions.quoteYear = { $eq: moment().format('YYYY') };
 		} else if ('PDT' === query.quotePending) {
-			conditions['ames.quoteYear'] = { $ne: moment().format('YYYY') };
+			console.log(moment().format('YYYY'));
+			conditions.quoteYear = { $ne: moment().format('YYYY') };
 		}
 	}
 	return conditions;
-}
-
-function sortQuery(query) {
-	if (query.order) {
-    var sort = query.order;
-    var direction = 0 === sort.indexOf('-') ? -1 : 1;
-    var orderBy = 1 === direction ? sort : sort.substring(1, sort.length);
-		var conditions = {};
-		conditions[orderBy] = direction;
-		return conditions;
-	}	
-	return '-creationDate';
 }
 
 module.exports = router;

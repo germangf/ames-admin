@@ -1,7 +1,333 @@
+<section class="content-box-large">
+  <div class="panel-body">
+    <form novalidate="" ng-submit="event._id ? update() : save()" class="tab-form-demo">
+      <div class="row">
+        <fieldset>
+          <div class="form-group col-md-2">
+            <label>Sección</label>
+            <select ng-model="member.ames.section" class="form-control">
+              <option ng-repeat="section in sections" value="{{section.code}}">
+              {{section.description}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-3">
+            <label>Email confirmacion asistencia</label>
+            <input ng-model="member.email" class="form-control" type="text" disabled="">
+          </div>
+          <div class="form-group col-md-6">
+            <label>Adjuntas / Organizadoras</label>
+            <div class="mutiselect" ng-dropdown-multiselect=""
+              options="organizers2" selected-model="selectedOrganizers2" extra-settings="multiSelectSettings"></div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="row">
+        <fieldset>
+          <div class="form-group col-md-2">
+            <label>Tipo actividad</label>
+            <input class="form-control" placeholder="Charla" type="text" list="eventType">
+            <datalist id="eventType">
+              <option value="Charla"></option>
+              <option value="Taller"></option>
+              <option value="Visita Museo"></option>
+              <option value="Excursión"></option>
+            </datalist>
+          </div>
+          <div class="form-group col-md-5">
+            <label>Titulo</label>
+            <input ng-model="member.email" class="form-control" type="text">
+          </div>
+          <div class="form-group col-md-4">
+            <label>Ponente</label>
+            <input ng-model="member.email" class="form-control" type="text">
+          </div>
+        </fieldset>
+      </div>
+      <div class="row">
+        <fieldset>
+          <div class="col-md-2">
+            <label>Dia</label>
+            <p class="input-group">
+              <input type="text" class="form-control date" ng-model="member.birthday" ng-required="true"
+                is-open="popupBirthday.opened" close-text="Close"
+                uib-datepicker-popup="dd.MM.yyyy" datepicker-options="dateOptions" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="openBirthday()">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+              </span>
+            </p>
+          </div>
+          <div class="col-md-2">
+            <label>Hora</label>
+            <uib-timepicker ng-model="mytime" ng-change="changed()" show-spinners="false"></uib-timepicker>
+          </div>
+          <div class="form-group col-md-7">
+            <label>Contenido</label>
+            <textarea ng-model="member.ames.motivation"  class="form-control" rows="3"></textarea>
+          </div>
+        </fieldset>
+      </div>
+      <div class="row">
+        <fieldset>
+          <div class="form-group col-md-3">
+            <label>Calle</label>
+            <input ng-model="member.email" class="form-control" type="text">
+          </div>
+          <div class="form-group col-md-3">
+            <label>PLZ, Ciudad</label>
+            <input ng-model="member.email" class="form-control" type="text">
+          </div>
+          <div class="form-group col-md-5">
+            <label>Como llegar</label>
+            <textarea ng-model="member.ames.motivation"  class="form-control" rows="3"></textarea>
+          </div>
+        </fieldset>
+      </div>
+    </form>
+
+<!--
+    <form novalidate="" ng-submit="member._id ? update() : save()" class="tab-form-demo">
+     <uib-tabset active="activeJustified" justified="true">
+        <uib-tab index="0" heading="Perfil">
+          <div class="row">
+            <fieldset>
+              <div class="form-group col-md-4">
+                <label>Nombre</label>
+                <input ng-model="member.name" class="form-control" placeholder="Maria Garcia" type="text">
+              </div>
+              <div class="form-group col-md-4">
+                <label>Email</label>
+                <input ng-model="member.email" class="form-control" placeholder="mgarcia@email.com" type="text">
+              </div>
+              <div class="col-md-2">
+                <label>Fecha nacimiento</label>
+                <p class="input-group">
+                  <input type="text" class="form-control date" ng-model="member.birthday" ng-required="true"
+                    is-open="popupBirthday.opened" close-text="Close"
+                    uib-datepicker-popup="dd.MM.yyyy" datepicker-options="dateOptions" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openBirthday()">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+                </p>
+              </div>
+              <div class="col-md-2">
+                <label>En Suiza desde</label>
+                <p class="input-group">
+                  <input type="text" class="form-control date" ng-model="member.inSwitzerlandSince" ng-required="true"
+                    is-open="popupInSwitzerland.opened" close-text="Close"
+                    uib-datepicker-popup="dd.MM.yyyy" datepicker-options="dateOptions" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openInSwitzerland()">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+                </p>
+              </div>
+            </fieldset>
+          </div>
+          <div class="row">
+            <fieldset>
+              <div class="form-group col-md-3">
+                <label>Teléfono</label>
+                <input ng-model="member.phone" class="form-control" placeholder="+41 78 654 63 45" type="text">
+              </div>
+              <div class="form-group col-md-2">
+                <label>Nacionalidad</label>
+                <select ng-model="member.nationality" class="form-control">
+                  <option ng-repeat="nationality in nationalities" value="{{nationality.code}}">
+                    {{nationality.description}}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <label>Profesión</label>
+                <input ng-model="member.job.title" class="form-control" placeholder="" type="text">
+              </div>
+              <div class="form-group col-md-4">
+                <label>Empresa</label>
+                <input ng-model="member.job.company" class="form-control" placeholder="" type="text">
+              </div>
+            </fieldset>
+          </div>
+          <div class="row">
+            <fieldset>
+               <div class="form-group col-md-2">
+                <label>Año cuota pago</label>
+                <input ng-model="member.quoteYear" class="form-control" placeholder="" type="text">
+              </div>
+              <div class="col-md-2" ng-view="member.startDate">
+                <label>Fecha de alta</label>
+                <p class="input-group">
+                  <input type="text" class="form-control date" ng-model="member.startDate" ng-required="true"
+                    is-open="popupInSwitzerland.opened" close-text="Close"
+                    uib-datepicker-popup="dd.MM.yyyy" datepicker-options="dateOptions" />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openInSwitzerland()" disabled="">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+                </p>
+              </div>
+            </fieldset>
+          </div>
+          <br>
+          <form-actions member-id="member._id"></form-actions>
+        </uib-tab>
+        <uib-tab index="1" heading="Dirección">
+          <div class="row">
+            <fieldset>
+              <div class="form-group col-md-8">
+                <label>Calle</label>
+                <input ng-model="member.address.street" class="form-control" placeholder="" type="text">
+              </div>
+            </fieldset>
+          </div>
+          <div class="row">
+            <fieldset>
+              <div class="form-group col-md-2">
+                <label>PLZ</label>
+                <input ng-model="member.address.plz" class="form-control" placeholder="" type="text">
+              </div>
+              <div class="form-group col-md-3">
+                <label>Ciudad</label>
+                <input ng-model="member.address.city" class="form-control" placeholder="" type="text">
+              </div>
+              <div class="form-group col-md-3">
+                <label>Canton</label>
+                <select ng-model="member.address.canton" class="form-control">
+                  <option ng-repeat="canton in cantons" value="{{canton.code}}">
+                    {{canton.description}}
+                  </option>
+                </select>
+              </div>
+            </fieldset>
+          </div>
+          <br>
+          <form-actions member-id="member._id"></form-actions>
+        </uib-tab>
+        <uib-tab index="2" heading="Asociacion">
+          <div class="row">
+            <fieldset>
+              <div class="form-group col-md-6">
+                <label>Motivacion para formar parte de la red</label>
+                <textarea ng-model="member.ames.motivation"  class="form-control" rows="3"></textarea>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Que estas dispuesta a aportar</label>
+                <textarea ng-model="member.ames.contribution" class="form-control" rows="3"></textarea>
+              </div>
+            </fieldset>
+          </div>
+          <div class="row">
+            <fieldset>
+              <div class="form-group col-md-6">
+                <label>Organizaciones de las que tambien formas parte</label>
+                <textarea ng-model="member.ames.associations" class="form-control" rows="3"></textarea>
+              </div>
+              <div class="form-group col-md-3">
+                <label>Como supiste de la asociación</label>
+                <select ng-model="member.ames.how" class="form-control">
+                  <option ng-repeat="how in memberHows" value="{{how.code}}">
+                    {{how.description}}
+                  </option>
+                </select>
+              </div>
+               <div class="form-group col-md-2">
+                <label>Sección</label>
+                <select ng-model="member.ames.section" class="form-control">
+                  <option ng-repeat="section in sections" value="{{section.code}}">
+                  {{section.description}}
+                  </option>
+                </select>
+              </div>
+            </fieldset>
+          </div>
+          <br>
+          <form-actions member-id="member._id"></form-actions>
+        </uib-tab>
+        <uib-tab index="3" heading="Formación">
+          <div class="row">
+            <fieldset>
+               <div class="form-group col-md-3">
+                <label>Estudios</label>
+                <select ng-model="member.education.level" class="form-control">
+                  <option ng-repeat="level in educationLevels" value="{{level.code}}">
+                    {{level.description}}
+                  </option>
+                </select>
+              </div>
+               <div class="form-group col-md-9">
+                <label>Titulación</label>
+                <input ng-model="member.education.degree" class="form-control" placeholder="" type="text">
+              </div>
+            </fieldset>
+          </div>
+          <h3>Idiomas</h3>
+          <div class="row">
+            <fieldset>
+              <language label="Alemán" ng-model="member.education.languages.german"></language>
+              <language label="Suizo" ng-model="member.education.languages.swiss"></language>
+              <language label="Francés" ng-model="member.education.languages.french"></language>
+              <language label="Italiano" ng-model="member.education.languages.italian"></language>
+              <language label="Inglés" ng-model="member.education.languages.english"></language>
+              <div class="form-group col-md-2">
+                <label>Otros</label>
+                <textarea ng-model="member.education.languages.others" class="form-control" rows="3"></textarea>
+              </div>
+            </fieldset>
+          </div>
+          <br>
+          <form-actions member-id="member._id"></form-actions>
+        </uib-tab>
+        <uib-tab index="4" heading="Otros Datos">
+          <div class="row">
+            <fieldset>
+               <div class="form-group col-md-2">
+                <label>Estado civil</label>
+                <select ng-model="member.maritalStatus" class="form-control">
+                  <option ng-repeat="maritalState in maritalStatus" value="{{maritalState.code}}">
+                    {{maritalState.description}}
+                  </option>
+                </select>
+              </div>
+               <div class="form-group col-md-1">
+                <label>N° hijos</label>
+                <input ng-model="member.childrenNr" class="form-control" placeholder="" type="text">
+              </div>
+            </fieldset>
+          </div>
+          <div class="row">
+            <fieldset>
+              <div class="form-group col-md-6">
+                <label>Aficiones</label>
+                <textarea ng-model="member.hobbies" class="form-control" rows="3"></textarea>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Facebook</label>
+                <input ng-model="member.facebook.user" class="form-control" placeholder="" type="text">
+              </div>
+            </fieldset>
+          </div>
+          <br>
+          <form-actions member-id="member._id"></form-actions>
+        </uib-tab>
+      </uib-tabset>
+    </form>
+-->
+
+
+  </div>
+</section>
+
+
+<!--
 <form novalidate="" ng-submit="event._id ? update() : save()" class="md-inline-form">
   <md-content class="event">
     <md-tabs md-dynamic-height md-border-bottom>
-      <!-- PERFIL -->
       <md-tab label="Evento">
         <div layout layout-sm="column">
           <md-input-container flex>
@@ -62,12 +388,10 @@
         <h3>Under working</h3>
       </md-tab>
 
-     <!-- ASOCIACION -->
       <md-tab label="Prevision gastos">
         <h3>Under working</h3>
       </md-tab>
 
-     <!-- FORMACION -->
       <md-tab label="Facturación">
         <h3>Under working</h3>
       </md-tab>
@@ -80,3 +404,4 @@
   </md-content>
 
 </form>
+-->

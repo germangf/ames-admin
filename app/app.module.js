@@ -1,5 +1,12 @@
-'use strict';
+'use strict'
 
-angular.module('ames-admin',
-  ['ui.router', 'ngMaterial', 'ngAnimate', 'ngAria', 'angularMoment', 'md.data.table', 'mdPickers', 
-  'pascalprecht.translate', 'tmh.dynamicLocale', 'ngSanitize', 'ngCookies']);
+angular.module('ames-admin', [
+	'ui.router',
+	'ui.bootstrap',
+//	'pascalprecht.translate',
+//	'tmh.dynamicLocale',
+//	'ngCookies',
+	'datatables',
+  'angularjs-dropdown-multiselect',
+  'underscore'
+]);

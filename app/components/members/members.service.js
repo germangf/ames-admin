@@ -7,10 +7,6 @@ angular.module('ames-admin')
 		return $http.get('/members');
 	};
 
-	this.findActive = function() {
-		return $http.get('/members?status=ACT');
-	};
-
 	this.findOne = function(id) {
 		return $http.get('/members/' + id);
 	};

@@ -7,10 +7,6 @@ angular.module('ames-admin')
     return $http.get('/events');
   };
 
-  this.findPending = function() {
-    return $http.get('/events?status=PDT');
-  };
-
   this.findOne = function(id) {
     return $http.get('/events/' + id);
   };

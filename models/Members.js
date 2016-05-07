@@ -2,14 +2,19 @@ var mongoose = require('mongoose');
 var moment = require('moment');
 
 var MemberSchema = new mongoose.Schema({
+  status: {
+    type: String, 
+    default: 'NO_MEMBER',
+    enum: ['MEMBER', 'NO_MEMBER', 'EX_MEMBER']
+  },
+  quoteYear: String,
   creationDate: { type: Date, default: moment().toDate() },
   name: String,
-  lastName: String,
   email: String,
   phone: String,
   birthday: Date,
   nationality: String,
-  inSwizertlandSince: Date,
+  inSwitzerlandSince: Date,
   job: {
     title: String,
     company: String

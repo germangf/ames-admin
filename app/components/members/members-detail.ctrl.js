@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('ames-admin')
-.controller('MembersDetailCtrl', ['$scope', '$state', '$mdDatePicker', 'members', 'resolveData', 'moment', 'masterdata',
-  function($scope, $state, $mdDatePicker, members, resolveData, moment, masterdata) {
+.controller('MembersDetailCtrl', ['$scope', '$state', 'members', 'resolveData', 'masterdata',
+  function($scope, $state, members, resolveData, masterdata) {
 
   $scope.cantons = masterdata.getData('cantons');
   $scope.memberHows = masterdata.getData('memberHows');
@@ -12,30 +12,43 @@ angular.module('ames-admin')
   $scope.educationLevels = masterdata.getData('educationLevels');
 
   $scope.member = resolveData ? resolveData.data[0] : {};
-  $scope.member.birthday = moment($scope.member.birthday).toDate();
-  $scope.member.inSwizertlandSince = moment($scope.member.inSwizertlandSince).toDate();
+  $scope.member.birthday = $scope.member.birthday && new Date($scope.member.birthday);
+  $scope.member.inSwitzerlandSince = $scope.member.inSwitzerlandSince && new Date($scope.member.inSwitzerlandSince);
+  $scope.member.startDate = $scope.member.startDate && new Date($scope.member.startDate);
 
-  $scope.showPicker = function(event, ngModel) {
-    $scope.member = $scope.member || {};
-    $mdDatePicker(event, $scope.member[ngModel])
-      .then(function(selectedDate) {
-        $scope.member[ngModel] = selectedDate;
-      });
+  $scope.dateOptions = {
+    startingDay: 1
+  };
+
+  $scope.popupBirthday = {
+    opened: false
+  };
+
+  $scope.openBirthday = function() {
+    $scope.popupBirthday.opened = true;
+  };
+
+  $scope.popupInSwitzerland = {
+    opened: false
+  };
+
+  $scope.openInSwitzerland = function() {
+    $scope.popupInSwitzerland.opened = true;
   };
 
   $scope.save = function() {
     members.save($scope.member);
-    $state.go('members.list');
+    $state.go('members.inactive');
   };
 
   $scope.update = function() {
     members.update($scope.member);
-    $state.go('members.list');
+    $state.go('members.inactive');
   };
 
   $scope.delete = function() {
     members.delete($scope.member);
-    $state.go('members.list');
+    $state.go('members.inactive');
   };
 
 }]);

@@ -2,6 +2,10 @@ angular.module('ames-admin')
 .controller('EventsListCtrl', ['$scope', '$state', 'resolveData', 'events', 'masterdata',
   function($scope, $state, resolveData, events, masterdata) {
 
+  $scope.events = resolveData.data;
+  setDescriptions($scope, masterdata);
+
+/*
   // data for select widgets
   $scope.sections = masterdata.getData('sections');
 
@@ -42,9 +46,19 @@ angular.module('ames-admin')
       getEventsInfo($scope, masterdata, result);
     });
   };
+*/
 
 }]);
 
+function setDescriptions($scope, masterdata) {
+  angular.forEach($scope.events, function(value, key) {
+    if (value.section) {
+      value.sectionDescription = masterdata.getDescription(value.section, 'sections');
+    }
+  });
+}
+
+/*
 function getEventsInfo($scope, masterdata, result) {
   $scope.events = result.docs;
   $scope.eventsTotal = result.total;
@@ -57,3 +71,4 @@ function getEventsInfo($scope, masterdata, result) {
     }
   });
 }
+*/

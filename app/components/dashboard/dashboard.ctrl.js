@@ -1,8 +1,9 @@
 angular.module('ames-admin')
-.controller('DashboardCtrl', ['$scope', 'count', 'countPending', 'countBS', 'countBE', 'countGE', 'countLS', 'countZH', 
+.controller('DashboardCtrl', ['$scope', 'count', 'countPending', 'countBS', 'countBE', 'countGE', 'countLS', 'countZH',
   function($scope, count, countPending, countBS, countBE, countGE, countLS, countZH) {
-  $scope.count = count.data.count;
-  $scope.countPending = countPending.data.count;
+
+  $scope.count = count.data.length;
+  $scope.countPending = countPending.data.length;
   $scope.countBS = countBS.data.count;
   $scope.countBE = countBE.data.count;
   $scope.countGE = countGE.data.count;
