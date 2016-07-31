@@ -2,8 +2,12 @@ var mongoose = require('mongoose');
 var moment = require('moment');
 
 var MemberSchema = new mongoose.Schema({
+  position: {
+    type: String,
+    enum: ['PRESIDENT', 'TREASURER', 'SECRETARY', 'CHAIR', 'DEPUTY', 'SUPPORT', 'COMMUNICATION']
+  },
   status: {
-    type: String, 
+    type: String,
     default: 'NO_MEMBER',
     enum: ['MEMBER', 'NO_MEMBER', 'EX_MEMBER']
   },
@@ -33,8 +37,7 @@ var MemberSchema = new mongoose.Schema({
     contribution: String,
     how: String,
     associations: String,
-    section: String,
-    quoteYear: String
+    section: String
   },
   education: {
     level: String,

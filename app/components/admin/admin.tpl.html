@@ -1,0 +1,143 @@
+<section class="content-box-large">
+  <div class="panel-body">
+    <form novalidate="" ng-submit="save()" class="tab-form-demo">
+      <div class="row">
+        <fieldset>
+          <div class="form-group col-md-5">
+            <h4>Presidencia</h4>
+            <input type="text"
+              ng-model="president"
+              uib-typeahead="member as member.name for member in availableMembers | filter:{name:$viewValue}"
+              class="form-control"
+              typeahead-show-hint="true"
+              typeahead-min-length="0">
+          </div>
+        </fieldset>
+      </div>
+      <div class="row">
+        <fieldset>
+          <div class="form-group col-md-5">
+            <h4>Secretaría</h4>
+            <input type="text"
+              ng-model="secretary"
+              uib-typeahead="member as member.name for member in availableMembers | filter:{name:$viewValue}"
+              class="form-control"
+              typeahead-show-hint="true"
+              typeahead-min-length="0">
+          </div>
+          <div class="form-group col-md-5">
+            <h4>Tesorería</h4>
+            <input type="text"
+              ng-model="treasurer"
+              uib-typeahead="member as member.name for member in availableMembers | filter:{name:$viewValue}"
+              class="form-control"
+              typeahead-show-hint="true"
+              typeahead-min-length="0">
+          </div>
+        </fieldset>
+      </div>
+      <div class="row">
+        <fieldset>
+          <div class="form-group col-md-5 admin">
+            <h4>Adjuntas</h4>
+            <div class="input-group">
+              <span class="input-group-addon">Basilea</span>
+              <input type="text"
+                ng-model="basileaDeputy"
+                uib-typeahead="member as member.name for member in membersOfBasilea | filter:{name:$viewValue}"
+                class="form-control"
+                typeahead-show-hint="true"
+                typeahead-min-length="0">
+            </div>
+            <br>
+            <div class="input-group">
+              <span class="input-group-addon">Berna</span>
+              <input type="text"
+                ng-model="bernaDeputy"
+                uib-typeahead="member as member.name for member in membersOfBerna | filter:{name:$viewValue}"
+                class="form-control"
+                typeahead-show-hint="true"
+                typeahead-min-length="0">
+            </div>
+            <br>
+            <div class="input-group">
+              <span class="input-group-addon">Ginebra</span>
+              <input type="text"
+                ng-model="ginebraDeputy"
+                uib-typeahead="member as member.name for member in membersOfGinebra | filter:{name:$viewValue}"
+                class="form-control"
+                typeahead-show-hint="true"
+                typeahead-min-length="0">
+            </div>
+            <br>
+            <div class="input-group">
+              <span class="input-group-addon">Lausana</span>
+              <input type="text"
+                ng-model="lausanaDeputy"
+                uib-typeahead="member as member.name for member in membersOfLausana | filter:{name:$viewValue}"
+                class="form-control"
+                typeahead-show-hint="true"
+                typeahead-min-length="0">
+            </div>
+            <br>
+            <div class="input-group">
+              <span class="input-group-addon">Zürich</span>
+              <input type="text"
+                ng-model="zurichDeputy"
+                uib-typeahead="member as member.name for member in membersOfZurich | filter:{name:$viewValue}"
+                class="form-control"
+                typeahead-show-hint="true"
+                typeahead-min-length="0">
+            </div>
+          </div>
+          <div class="form-group col-md-5">
+            <h4>Vocales</h4>
+            <input type="text"
+              ng-model="chair1"
+              uib-typeahead="member as member.name for member in availableMembers | filter:{name:$viewValue}"
+              class="form-control"
+              typeahead-show-hint="true"
+              typeahead-min-length="0">
+            <br>
+            <input type="text"
+              ng-model="chair2"
+              uib-typeahead="member as member.name for member in availableMembers | filter:{name:$viewValue}"
+              class="form-control"
+              typeahead-show-hint="true"
+              typeahead-min-length="0">
+          </div>
+        </fieldset>
+      </div>
+      <div class="row">
+        <fieldset>
+          <div class="form-group col-md-5">
+            <h4>Comunicación</h4>
+            <input type="text"
+              ng-model="communication"
+              uib-typeahead="member as member.name for member in availableMembers | filter:{name:$viewValue}"
+              class="form-control"
+              typeahead-show-hint="true"
+              typeahead-min-length="0">
+          </div>
+          <div class="form-group col-md-5">
+            <h4>Soporte</h4>
+            <input type="text"
+              ng-model="support"
+              uib-typeahead="member as member.name for member in availableMembers | filter:{name:$viewValue}"
+              class="form-control"
+              typeahead-show-hint="true"
+              typeahead-min-length="0">
+          </div>
+        </fieldset>
+      </div>
+      <div class="form-actions">
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-ok"></i> Guardar</button>
+          </div>
+        </div>
+      </div>
+   </form>
+  </div>
+</section>
+

@@ -37,6 +37,12 @@
     float: right;
     margin-top: 8px;
   }
+  .admin .input-group .form-control  {
+    width: 177%;
+  }
+  .admin .input-group-addon  {
+    width: 32%;
+  }
   </style>
 </head>
 
@@ -97,6 +103,9 @@
             <!-- Main menu -->
             <li>
               <a ui-sref="dashboard" ui-sref-active="active"><i class="glyphicon glyphicon-home"></i> Dashboard</a>
+            </li>
+            <li>
+              <a ui-sref="admin" ui-sref-active="active"><i class="glyphicon glyphicon-cog"></i> Administración</a>
             </li>
             <li>
               <a ui-sref="members.inactive" ui-sref-active="active"><i class="glyphicon glyphicon-user"></i> No Socias</a>
@@ -160,6 +169,7 @@
   <script src="/services/masterdata.service.js"></script>
 
   <script src="/components/dashboard/dashboard.ctrl.js"></script>
+  <script src="/components/admin/admin.ctrl.js"></script>
 
   <script src="/components/members/members.directive.js"></script>
   <script src="/components/members/members.service.js"></script>

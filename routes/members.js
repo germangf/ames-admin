@@ -63,7 +63,6 @@ router.delete('/:id', function(req, res, next) {
 
 function filter(req, res, next) {
 	var query = filterQuery(req.query);
-	console.log(query);
 
 	Member
 		.find(query)
@@ -90,12 +89,13 @@ function filterQuery(query) {
 	if (query.section) {
 		conditions['ames.section'] = query.section;
 	}
-	console.log(query.quotePending);
-	if (query.quotePending) {
-		if ('CRT' === query.quotePending) {
+	if (query.position) {
+		conditions.position = query.position;
+	}
+	if (query.quoteYear) {
+		if ('CRT' === query.quoteYear) {
 			conditions.quoteYear = { $eq: moment().format('YYYY') };
-		} else if ('PDT' === query.quotePending) {
-			console.log(moment().format('YYYY'));
+		} else if ('PENDING' === query.quoteYear) {
 			conditions.quoteYear = { $ne: moment().format('YYYY') };
 		}
 	}

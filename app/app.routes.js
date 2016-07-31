@@ -15,7 +15,7 @@ angular.module('ames-admin')
           return members.filter();
         }],
         countPending: ['members', function(members) {
-          return members.filter({ 'quotePending': 'PDT' });
+          return members.filter({ 'quoteYear': 'PENDING' });
         }],
         countBS: ['members', function(members) {
           return members.filter({ 'section': 'BS' });
@@ -30,6 +30,53 @@ angular.module('ames-admin')
           return members.filter({ 'section': 'LS' });
         }],
         countZH: ['members', function(members) {
+          return members.filter({ 'section': 'ZH' });
+        }]
+      }
+    })
+
+    .state('admin', {
+      url: '/admin',
+      templateUrl: 'components/admin/admin.tpl.html',
+      controller: 'AdminCtrl',
+      resolve: {
+        president: ['members', function(members) {
+          return members.filter({ 'position': 'PRESIDENT' });
+        }],
+        treasurer: ['members', function(members) {
+          return members.filter({ 'position': 'TREASURER' });
+        }],
+        secretary: ['members', function(members) {
+          return members.filter({ 'position': 'SECRETARY' });
+        }],
+        deputies: ['members', function(members) {
+          return members.filter({ 'position': 'DEPUTY' });
+        }],
+        chairs: ['members', function(members) {
+          return members.filter({ 'position': 'CHAIR' });
+        }],
+        communication: ['members', function(members) {
+          return members.filter({ 'position': 'COMMUNICATION' });
+        }],
+        support: ['members', function(members) {
+          return members.filter({ 'position': 'SUPPORT' });
+        }],
+        availableMembers: ['members', function(members) {
+          return members.filter();
+        }],
+        membersOfBasilea: ['members', function(members) {
+          return members.filter({ 'section': 'BS' });
+        }],
+        membersOfBerna: ['members', function(members) {
+          return members.filter({ 'section': 'BE' });
+        }],
+        membersOfGinebra: ['members', function(members) {
+          return members.filter({ 'section': 'GE' });
+        }],
+        membersOfLausana: ['members', function(members) {
+          return members.filter({ 'section': 'LS' });
+        }],
+        membersOfZurich: ['members', function(members) {
           return members.filter({ 'section': 'ZH' });
         }]
       }
