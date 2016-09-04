@@ -6,7 +6,9 @@ angular.module('ames-admin')
     restrict: 'E',
     scope: {
       status: '=',
-      members: '='
+      members: '=',
+      activate: '&activate',
+      deactivate: '&deactivate'
     },
     template: ''
       + '<table cellpadding="0" cellspacing="0" border="0" class="table table-striped hover" datatable="ng" dt-options="dtOptions">'
@@ -32,10 +34,10 @@ angular.module('ames-admin')
       +         '<i class="glyphicon glyphicon-eye-open"></i> Detalle'
       +       '</a>'
       +       '&nbsp;&nbsp;'
-      +        '<a ng-show="{{\'active\' == status}}" href ng-click="deactivate($index, member)">'
+      +        '<a ng-show="{{\'active\' == status}}" href ng-click="deactivate({ index: $index, member: member })">'
       +          '<i class="glyphicon glyphicon-thumbs-down"></i> Dar de baja'
       +        '</a>'
-      +       '<a ng-show="{{\'inactive\' == status}}" href ng-click="activate($index, member)">'
+      +       '<a ng-show="{{\'inactive\' == status}}" href ng-click="activate({ index: $index, member: member })">'
       +         '<i class="glyphicon glyphicon-thumbs-up"></i> Hacer Socia'
       +       '</a>'
       +     '</td>'

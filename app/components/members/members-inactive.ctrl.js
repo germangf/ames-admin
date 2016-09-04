@@ -1,26 +1,35 @@
-'use strict';
+(function() {
+  'use strict';
 
-angular.module('ames-admin')
-.controller('MembersInactiveCtrl', ['$scope', 'resolveData', 'members', 'masterdata', 'DTOptionsBuilder',
-  function($scope, resolveData, members, masterdata, DTOptionsBuilder) {
+  angular.module('ames-admin')
+    .controller('MembersInactiveCtrl', MembersInactiveCtrl);
 
-  $scope.members = resolveData.data;
-  setDescriptions($scope, masterdata);
+  MembersInactiveCtrl.$inject = ['resolveData', 'members', 'masterdata', 'DTOptionsBuilder'];
+  function MembersInactiveCtrl(resolveData, members, masterdata, DTOptionsBuilder) {
 
-  $scope.dtOptions = DTOptionsBuilder.newOptions().withOption('stateSave', true);
+    var vmMembersInactive = this;
 
-  $scope.activate = function(index, member) {
-    $scope.members.splice(index, 1);
-    member.status = 'MEMBER';
-    members.update(member);
-  };
+    vmMembersInactive.members = resolveData.data;
+    vmMembersInactive.dtOptions = DTOptionsBuilder.newOptions().withOption('stateSave', true);
 
-}]);
+    vmMembersInactive.activate = activate;    
 
-function setDescriptions($scope, masterdata) {
-  angular.forEach($scope.members, function(value, key) {
-    if (value.ames && value.ames.section) {
-      value.ames.sectionDescription = masterdata.getDescription(value.ames.section, 'sections');
-    }
-  });
-}
+    setDescriptions(masterdata);
+
+    //////
+
+    function activate(index, member) {
+      vmMembersInactive.members.splice(index, 1);
+      member.status = 'MEMBER';
+      members.update(member);
+    };
+
+    function setDescriptions(masterdata) {
+      angular.forEach(vmMembersInactive.members, function(value, key) {
+        if (value.ames && value.ames.section) {
+          value.ames.sectionDescription = masterdata.getDescription(value.ames.section, 'sections');
+        }
+      });
+    };
+  }
+})();

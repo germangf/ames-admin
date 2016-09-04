@@ -1,26 +1,30 @@
 <section class="content-box-large">
   <div class="panel-body">
-    <form novalidate="" ng-submit="member._id ? update() : save()" class="tab-form-demo">
+    <form novalidate="" ng-submit="mDetailCtrl.member._id ? mDetailCtrl.update() : mDetailCtrl.save()" class="tab-form-demo">
      <uib-tabset active="activeJustified" justified="true">
         <uib-tab index="0" heading="Perfil">
           <div class="row">
             <fieldset>
               <div class="form-group col-md-4">
                 <label>Nombre</label>
-                <input ng-model="member.name" class="form-control" placeholder="Maria Garcia" type="text">
+                <input ng-model="mDetailCtrl.member.name" class="form-control" placeholder="Maria Garcia" type="text">
               </div>
               <div class="form-group col-md-4">
                 <label>Email</label>
-                <input ng-model="member.email" class="form-control" placeholder="mgarcia@email.com" type="text">
+                <input ng-model="mDetailCtrl.member.email" class="form-control" placeholder="mgarcia@email.com" type="text">
               </div>
               <div class="col-md-2">
                 <label>Fecha nacimiento</label>
                 <p class="input-group">
-                  <input type="text" class="form-control date" ng-model="member.birthday" ng-required="true"
-                    is-open="popupBirthday.opened" close-text="Close"
-                    uib-datepicker-popup="dd.MM.yyyy" datepicker-options="dateOptions" />
+                  <input type="text" class="form-control date" 
+                    ng-model="mDetailCtrl.member.birthday" 
+                    ng-required="true"
+                    is-open="mDetailCtrl.popupBirthday.opened" 
+                    close-text="Close"
+                    uib-datepicker-popup="dd.MM.yyyy" 
+                    datepicker-options="mDetailCtrl.dateOptions" />
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="openBirthday()">
+                    <button type="button" class="btn btn-default" ng-click="mDetailCtrl.openBirthday()">
                       <i class="glyphicon glyphicon-calendar"></i>
                     </button>
                   </span>
@@ -29,11 +33,15 @@
               <div class="col-md-2">
                 <label>En Suiza desde</label>
                 <p class="input-group">
-                  <input type="text" class="form-control date" ng-model="member.inSwitzerlandSince" ng-required="true" 
-                    is-open="popupInSwitzerland.opened" close-text="Close"
-                    uib-datepicker-popup="dd.MM.yyyy" datepicker-options="dateOptions" />
+                  <input type="text" class="form-control date" 
+                    ng-model="mDetailCtrl.member.inSwitzerlandSince" 
+                    ng-required="true" 
+                    is-open="mDetailCtrl.popupInSwitzerland.opened" 
+                    close-text="Close"
+                    uib-datepicker-popup="dd.MM.yyyy" 
+                    datepicker-options="mDetailCtrl.dateOptions" />
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="openInSwitzerland()">
+                    <button type="button" class="btn btn-default" ng-click="mDetailCtrl.openInSwitzerland()">
                       <i class="glyphicon glyphicon-calendar"></i>
                     </button>
                   </span>
@@ -45,23 +53,23 @@
             <fieldset>
               <div class="form-group col-md-3">
                 <label>Teléfono</label>
-                <input ng-model="member.phone" class="form-control" placeholder="+41 78 654 63 45" type="text">
+                <input ng-model="mDetailCtrl.member.phone" class="form-control" placeholder="+41 78 654 63 45" type="text">
               </div>
               <div class="form-group col-md-2">
                 <label>Nacionalidad</label>
-                <select ng-model="member.nationality" class="form-control">
-                  <option ng-repeat="nationality in nationalities" value="{{nationality.code}}">
+                <select ng-model="mDetailCtrl.member.nationality" class="form-control">
+                  <option ng-repeat="nationality in mDetailCtrl.nationalities" value="{{nationality.code}}">
                     {{nationality.description}}
                   </option>
                 </select> 
               </div>
               <div class="form-group col-md-3">
                 <label>Profesión</label>
-                <input ng-model="member.job.title" class="form-control" placeholder="" type="text">
+                <input ng-model="mDetailCtrl.member.job.title" class="form-control" placeholder="" type="text">
               </div>
               <div class="form-group col-md-4">
                 <label>Empresa</label>
-                <input ng-model="member.job.company" class="form-control" placeholder="" type="text">
+                <input ng-model="mDetailCtrl.member.job.company" class="form-control" placeholder="" type="text">
               </div>
             </fieldset>
           </div>
@@ -69,16 +77,20 @@
             <fieldset>
                <div class="form-group col-md-2">
                 <label>Año cuota pago</label>
-                <input ng-model="member.quoteYear" class="form-control" placeholder="" type="text">
+                <input ng-model="mDetailCtrl.member.quoteYear" class="form-control" placeholder="" type="text">
               </div>
-              <div class="col-md-2" ng-view="member.startDate">
+              <div class="col-md-2" ng-view="mDetailCtrl.member.startDate">
                 <label>Fecha de alta</label>
                 <p class="input-group">
-                  <input type="text" class="form-control date" ng-model="member.startDate" ng-required="true" 
-                    is-open="popupInSwitzerland.opened" close-text="Close"
-                    uib-datepicker-popup="dd.MM.yyyy" datepicker-options="dateOptions" />
+                  <input type="text" class="form-control date" 
+                    ng-model="mDetailCtrl.member.startDate" 
+                    ng-required="true" 
+                    is-open="mDetailCtrl.popupStart.opened" 
+                    close-text="Close"
+                    uib-datepicker-popup="dd.MM.yyyy" 
+                    datepicker-options="mDetailCtrl.dateOptions" />
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="openInSwitzerland()" disabled="">
+                    <button type="button" class="btn btn-default" ng-click="mDetailCtrl.openStart()" disabled="">
                       <i class="glyphicon glyphicon-calendar"></i>
                     </button>
                   </span>
@@ -87,14 +99,14 @@
             </fieldset>
           </div>
           <br>
-          <form-actions member-id="member._id"></form-actions>
+          <form-actions member-id="mDetailCtrl.member._id" delete="mDetailCtrl.remove()"></form-actions>
         </uib-tab>
         <uib-tab index="1" heading="Dirección">
           <div class="row">
             <fieldset>
               <div class="form-group col-md-8">
                 <label>Calle</label>
-                <input ng-model="member.address.street" class="form-control" placeholder="" type="text">
+                <input ng-model="mDetailCtrl.member.address.street" class="form-control" placeholder="" type="text">
               </div>
             </fieldset>
           </div>
@@ -102,16 +114,16 @@
             <fieldset>
               <div class="form-group col-md-2">
                 <label>PLZ</label>
-                <input ng-model="member.address.plz" class="form-control" placeholder="" type="text">
+                <input ng-model="mDetailCtrl.member.address.plz" class="form-control" placeholder="" type="text">
               </div>
               <div class="form-group col-md-3">
                 <label>Ciudad</label>
-                <input ng-model="member.address.city" class="form-control" placeholder="" type="text">
+                <input ng-model="mDetailCtrl.member.address.city" class="form-control" placeholder="" type="text">
               </div>
               <div class="form-group col-md-3">
                 <label>Canton</label>
-                <select ng-model="member.address.canton" class="form-control">
-                  <option ng-repeat="canton in cantons" value="{{canton.code}}">
+                <select ng-model="mDetailCtrl.member.address.canton" class="form-control">
+                  <option ng-repeat="canton in mDetailCtrl.cantons" value="{{canton.code}}">
                     {{canton.description}}
                   </option>
                 </select> 
@@ -119,18 +131,18 @@
             </fieldset>
           </div>
           <br>
-          <form-actions member-id="member._id"></form-actions>
+          <form-actions member-id="mDetailCtrl.member._id" delete="mDetailCtrl.remove()"></form-actions>
         </uib-tab>
         <uib-tab index="2" heading="Asociacion">
           <div class="row">
             <fieldset>
               <div class="form-group col-md-6">
                 <label>Motivacion para formar parte de la red</label>
-                <textarea ng-model="member.ames.motivation"  class="form-control" rows="3"></textarea>
+                <textarea ng-model="mDetailCtrl.member.ames.motivation"  class="form-control" rows="3"></textarea>
               </div>
               <div class="form-group col-md-6">
                 <label>Que estas dispuesta a aportar</label>
-                <textarea ng-model="member.ames.contribution" class="form-control" rows="3"></textarea>
+                <textarea ng-model="mDetailCtrl.member.ames.contribution" class="form-control" rows="3"></textarea>
               </div>
             </fieldset>
           </div>
@@ -138,20 +150,20 @@
             <fieldset>
               <div class="form-group col-md-6">
                 <label>Organizaciones de las que tambien formas parte</label>
-                <textarea ng-model="member.ames.associations" class="form-control" rows="3"></textarea>
+                <textarea ng-model="mDetailCtrl.member.ames.associations" class="form-control" rows="3"></textarea>
               </div>
               <div class="form-group col-md-3">
                 <label>Como supiste de la asociación</label>
-                <select ng-model="member.ames.how" class="form-control">
-                  <option ng-repeat="how in memberHows" value="{{how.code}}">
+                <select ng-model="mDetailCtrl.member.ames.how" class="form-control">
+                  <option ng-repeat="how in mDetailCtrl.memberHows" value="{{how.code}}">
                     {{how.description}}
                   </option>
                 </select> 
               </div>
                <div class="form-group col-md-2">
                 <label>Sección</label>
-                <select ng-model="member.ames.section" class="form-control">
-                  <option ng-repeat="section in sections" value="{{section.code}}">
+                <select ng-model="mDetailCtrl.member.ames.section" class="form-control">
+                  <option ng-repeat="section in mDetailCtrl.sections" value="{{section.code}}">
                   {{section.description}}
                   </option>
                 </select> 
@@ -159,56 +171,56 @@
             </fieldset>
           </div>
           <br>
-          <form-actions member-id="member._id"></form-actions>
+          <form-actions member-id="mDetailCtrl.member._id" delete="mDetailCtrl.remove()"></form-actions>
         </uib-tab>
         <uib-tab index="3" heading="Formación">
           <div class="row">
             <fieldset>
                <div class="form-group col-md-3">
                 <label>Estudios</label>
-                <select ng-model="member.education.level" class="form-control">
-                  <option ng-repeat="level in educationLevels" value="{{level.code}}">
+                <select ng-model="mDetailCtrl.member.education.level" class="form-control">
+                  <option ng-repeat="level in mDetailCtrl.educationLevels" value="{{level.code}}">
                     {{level.description}}
                   </option>
                 </select> 
               </div>
                <div class="form-group col-md-9">
                 <label>Titulación</label>
-                <input ng-model="member.education.degree" class="form-control" placeholder="" type="text">
+                <input ng-model="mDetailCtrl.member.education.degree" class="form-control" placeholder="" type="text">
               </div>
             </fieldset>
           </div>
           <h3>Idiomas</h3>
           <div class="row">
             <fieldset>
-              <language label="Alemán" ng-model="member.education.languages.german"></language>
-              <language label="Suizo" ng-model="member.education.languages.swiss"></language>
-              <language label="Francés" ng-model="member.education.languages.french"></language>
-              <language label="Italiano" ng-model="member.education.languages.italian"></language>
-              <language label="Inglés" ng-model="member.education.languages.english"></language>
+              <language label="Alemán" ng-model="mDetailCtrl.member.education.languages.german"></language>
+              <language label="Suizo" ng-model="mDetailCtrl.member.education.languages.swiss"></language>
+              <language label="Francés" ng-model="mDetailCtrl.member.education.languages.french"></language>
+              <language label="Italiano" ng-model="mDetailCtrl.member.education.languages.italian"></language>
+              <language label="Inglés" ng-model="mDetailCtrl.member.education.languages.english"></language>
               <div class="form-group col-md-2">
                 <label>Otros</label>
-                <textarea ng-model="member.education.languages.others" class="form-control" rows="3"></textarea>
+                <textarea ng-model="mDetailCtrl.member.education.languages.others" class="form-control" rows="3"></textarea>
               </div>
             </fieldset>
           </div>
           <br>
-          <form-actions member-id="member._id"></form-actions>
+          <form-actions member-id="mDetailCtrl.member._id" delete="mDetailCtrl.remove()"></form-actions>
         </uib-tab>
         <uib-tab index="4" heading="Otros Datos">
           <div class="row">
             <fieldset>
                <div class="form-group col-md-2">
                 <label>Estado civil</label>
-                <select ng-model="member.maritalStatus" class="form-control">
-                  <option ng-repeat="maritalState in maritalStatus" value="{{maritalState.code}}">
+                <select ng-model="mDetailCtrl.member.maritalStatus" class="form-control">
+                  <option ng-repeat="maritalState in mDetailCtrl.maritalStatus" value="{{maritalState.code}}">
                     {{maritalState.description}}
                   </option>
                 </select> 
               </div>
                <div class="form-group col-md-1">
                 <label>N° hijos</label>
-                <input ng-model="member.childrenNr" class="form-control" placeholder="" type="text">
+                <input ng-model="mDetailCtrl.member.childrenNr" class="form-control" placeholder="" type="text">
               </div>
             </fieldset>
           </div>
@@ -216,16 +228,16 @@
             <fieldset>
               <div class="form-group col-md-6">
                 <label>Aficiones</label>
-                <textarea ng-model="member.hobbies" class="form-control" rows="3"></textarea>
+                <textarea ng-model="mDetailCtrl.member.hobbies" class="form-control" rows="3"></textarea>
               </div>
               <div class="form-group col-md-4">
                 <label>Facebook</label>
-                <input ng-model="member.facebook.user" class="form-control" placeholder="" type="text">
+                <input ng-model="mDetailCtrl.member.facebook.user" class="form-control" placeholder="" type="text">
               </div>
             </fieldset>
           </div>
           <br>
-          <form-actions member-id="member._id"></form-actions>
+          <form-actions member-id="mDetailCtrl.member._id" delete="mDetailCtrl.remove()"></form-actions>
         </uib-tab>
       </uib-tabset>
     </form>

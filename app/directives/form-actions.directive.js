@@ -5,7 +5,8 @@ angular.module('ames-admin')
   return {
     restrict: 'E',
     scope: {
-      memberId: '='
+      memberId: '=',
+      delete: '&delete'
     },
     template: '<div class="form-actions">'
             + '   <div class="row">'

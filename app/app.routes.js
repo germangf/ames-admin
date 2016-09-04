@@ -94,6 +94,7 @@
         url: '/',
         templateUrl: 'components/members/members-active.tpl.html',
         controller: 'MembersActiveCtrl',
+        controllerAs: 'mActiveCtrl',
         resolve: {
           resolveData: ['members', function(members) {
             return members.filter({ status: ['MEMBER', 'MEMBER'] });
@@ -105,6 +106,7 @@
         url: '/not',
         templateUrl: 'components/members/members-inactive.tpl.html',
         controller: 'MembersInactiveCtrl',
+        controllerAs: 'mInactiveCtrl',
         resolve: {
           resolveData: ['members', function(members) {
             return members.filter({ status: ['NO_MEMBER', 'EX_MEMBER'] });
@@ -116,6 +118,7 @@
         url: '/:id',
         templateUrl: 'components/members/members-detail.tpl.html',
         controller: 'MembersDetailCtrl',
+        controllerAs: 'mDetailCtrl',
         resolve: {
           resolveData: ['$stateParams', 'members', function($stateParams, members) {
             if ('0' !== $stateParams.id) {

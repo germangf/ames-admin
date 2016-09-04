@@ -1,54 +1,66 @@
-'use strict';
+(function() {
+  'use strict';
 
-angular.module('ames-admin')
-.controller('MembersDetailCtrl', ['$scope', '$state', 'members', 'resolveData', 'masterdata',
-  function($scope, $state, members, resolveData, masterdata) {
+  angular.module('ames-admin')
+    .controller('MembersDetailCtrl', MembersDetailCtrl);
 
-  $scope.cantons = masterdata.getData('cantons');
-  $scope.memberHows = masterdata.getData('memberHows');
-  $scope.sections = masterdata.getData('sections');
-  $scope.maritalStatus = masterdata.getData('maritalStatus');
-  $scope.nationalities = masterdata.getData('nationalities');
-  $scope.educationLevels = masterdata.getData('educationLevels');
+  MembersDetailCtrl.$inject = ['$state', 'members', 'resolveData', 'masterdata'];
+  function MembersDetailCtrl($state, members, resolveData, masterdata) {
 
-  $scope.member = resolveData ? resolveData.data[0] : {};
-  $scope.member.birthday = $scope.member.birthday && new Date($scope.member.birthday);
-  $scope.member.inSwitzerlandSince = $scope.member.inSwitzerlandSince && new Date($scope.member.inSwitzerlandSince);
-  $scope.member.startDate = $scope.member.startDate && new Date($scope.member.startDate);
+    var vmMembersDetail = this;
 
-  $scope.dateOptions = {
-    startingDay: 1
-  };
+    vmMembersDetail.cantons = masterdata.getData('cantons');
+    vmMembersDetail.memberHows = masterdata.getData('memberHows');
+    vmMembersDetail.sections = masterdata.getData('sections');
+    vmMembersDetail.maritalStatus = masterdata.getData('maritalStatus');
+    vmMembersDetail.nationalities = masterdata.getData('nationalities');
+    vmMembersDetail.educationLevels = masterdata.getData('educationLevels');
 
-  $scope.popupBirthday = {
-    opened: false
-  };
+    vmMembersDetail.member = resolveData ? resolveData.data[0] : {};
+    vmMembersDetail.member.birthday = vmMembersDetail.member.birthday && new Date(vmMembersDetail.member.birthday);
+    vmMembersDetail.member.inSwitzerlandSince = vmMembersDetail.member.inSwitzerlandSince && new Date(vmMembersDetail.member.inSwitzerlandSince);
+    vmMembersDetail.member.startDate = vmMembersDetail.member.startDate && new Date(vmMembersDetail.member.startDate);
 
-  $scope.openBirthday = function() {
-    $scope.popupBirthday.opened = true;
-  };
+    vmMembersDetail.dateOptions = { startingDay: 1 };
+    vmMembersDetail.popupBirthday = { opened: false };
+    vmMembersDetail.popupInSwitzerland = { opened: false };
+    vmMembersDetail.popupStart = { opened: false };
 
-  $scope.popupInSwitzerland = {
-    opened: false
-  };
+    vmMembersDetail.openBirthday = openBirthday;
+    vmMembersDetail.openInSwitzerland = openInSwitzerland;
+    vmMembersDetail.openStart = openStart;
+    vmMembersDetail.save = save;
+    vmMembersDetail.update = update;
+    vmMembersDetail.remove = remove;
 
-  $scope.openInSwitzerland = function() {
-    $scope.popupInSwitzerland.opened = true;
-  };
+    //////
 
-  $scope.save = function() {
-    members.save($scope.member);
-    $state.go('members.inactive');
-  };
+    function openBirthday() {
+      vmMembersDetail.popupBirthday.opened = true;
+    };
 
-  $scope.update = function() {
-    members.update($scope.member);
-    $state.go('members.inactive');
-  };
+    function openInSwitzerland() {
+      vmMembersDetail.popupInSwitzerland.opened = true;
+    };
 
-  $scope.delete = function() {
-    members.delete($scope.member);
-    $state.go('members.inactive');
-  };
+    function openStart() {
+      vmMembersDetail.popupStart.opened = true;
+    };
 
-}]);
+    function save() {
+      members.save(vmMembersDetail.member);
+      $state.go('members.inactive');
+    };
+
+    function update() {
+      members.update(vmMembersDetail.member);
+      $state.go('members.inactive');
+    };
+
+    function remove() {
+      members.delete(vmMembersDetail.member);
+      $state.go('members.inactive');
+    };
+
+  }
+})();
