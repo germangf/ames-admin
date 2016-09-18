@@ -22,7 +22,8 @@ angular.module('ames-admin')
 		return $http.put('/members/' + member._id, member);
 	};
 
-	this.delete = function(member) {
+	this.remove = function(member) {
+		console.log('members.service.js');
 		return $http.delete('/members/' + member._id);
 	};
 

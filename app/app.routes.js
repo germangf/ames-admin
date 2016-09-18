@@ -13,10 +13,10 @@
         controller: 'DashboardCtrl',
         resolve: {
           count: ['members', function(members) {
-            return members.filter();
+            return members.filter({ 'quoteYear': 'CRT', 'status': 'MEMBER' });
           }],
           countPending: ['members', function(members) {
-            return members.filter({ 'quoteYear': 'PENDING' });
+            return members.filter({ 'quoteYear': 'PENDING', 'status': 'MEMBER' });
           }],
           countBS: ['members', function(members) {
             return members.filter({ 'section': 'BS' });

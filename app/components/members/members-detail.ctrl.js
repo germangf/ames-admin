@@ -58,7 +58,8 @@
     };
 
     function remove() {
-      members.delete(vmMembersDetail.member);
+      console.log('members-details.ctrl.js');
+      members.remove(vmMembersDetail.member);
       $state.go('members.inactive');
     };
 

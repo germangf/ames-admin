@@ -47,6 +47,7 @@ router.put('/:id', function(req, res, next) {
 
 // DELETE /members/12 - delete member 12
 router.delete('/:id', function(req, res, next) {
+	console.log('members.js');
 	Member
 		.find({ '_id': req.params.id })
 		.exec()
@@ -94,8 +95,12 @@ function filterQuery(query) {
 	}
 	if (query.quoteYear) {
 		if ('CRT' === query.quoteYear) {
-			conditions.quoteYear = { $eq: moment().format('YYYY') };
+			conditions.status = { $in: query.status };
+			var datetime = moment().format('YYYY');
+			var datetimeMinusYear = moment().subtract(1, 'years').format('YYYY');
+			conditions.quoteYear = { $in: [ datetime, datetimeMinusYear ] };
 		} else if ('PENDING' === query.quoteYear) {
+			conditions.status = { $in: query.status };
 			conditions.quoteYear = { $ne: moment().format('YYYY') };
 		}
 	}
